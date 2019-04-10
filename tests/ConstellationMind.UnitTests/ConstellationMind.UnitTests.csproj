@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ConstellationMind.Core\ConstellationMind.Core.csproj" />
+    <ProjectReference Include="..\..\src\ConstellationMind.Infrastructure.IoC\ConstellationMind.Infrastructure.IoC.csproj" />
+    <ProjectReference Include="..\..\src\ConstellationMind.Infrastructure.Persistance\ConstellationMind.Infrastructure.Persistance.csproj" />
+    <ProjectReference Include="..\..\src\ConstellationMind.Infrastructure.Services\ConstellationMind.Infrastructure.Services.csproj" />
+    <ProjectReference Include="..\..\src\ConstellationMind.Shared\ConstellationMind.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
