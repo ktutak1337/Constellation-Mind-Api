@@ -7,10 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ConstellationMind.Core\ConstellationMind.Core.csproj" />
+    <ProjectReference Include="..\ConstellationMind.Infrastructure.Services\ConstellationMind.Infrastructure.Services.csproj" />
   </ItemGroup>
 
 </Project>
