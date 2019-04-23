@@ -21,6 +21,8 @@ namespace ConstellationMind.Infrastructure.IoC
 
             builder.RegisterModule<DispachersModule>();
             builder.RegisterModule<HandlersModule>();    
+            builder.RegisterModule<RepositoriesModule>();    
+            builder.RegisterModule<ServicesModule>();    
         }          
     }
 }
