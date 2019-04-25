@@ -5,23 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ConstellationMind.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PlayersController : ControllerBase
+    public class PlayersController : BaseController
     {
-        private readonly IDispatcher _dispatcher;
-
-        public PlayersController(IDispatcher dispatcher)
+        public PlayersController(IDispatcher dispatcher) : base(dispatcher)
         {
-            _dispatcher = dispatcher;
+
         }
 
         // POST api/players
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreatePlayer command)
         {
-            await _dispatcher.SendAsync(command);
-            return Created($"players/{command.Nickname}", null);
+            await Dispatcher.SendAsync(command);
+            return Created($"api/players/{command.Nickname}", value: null);
         }
     }
 }
