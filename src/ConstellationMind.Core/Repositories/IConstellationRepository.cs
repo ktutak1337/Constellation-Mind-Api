@@ -1,6 +1,8 @@
+using ConstellationMind.Shared.Types;
+
 namespace ConstellationMind.Core.Repositories
 {
-    public interface IConstellationRepository
+    public interface IConstellationRepository : IRepository
     {
          
     }

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ConstellationMind.Core\ConstellationMind.Core.csproj" />
     <ProjectReference Include="..\ConstellationMind.Infrastructure.Services\ConstellationMind.Infrastructure.Services.csproj" />
+    <ProjectReference Include="..\ConstellationMind.Infrastructure.Persistance\ConstellationMind.Infrastructure.Persistance.csproj" />
   </ItemGroup>
 
 </Project>
