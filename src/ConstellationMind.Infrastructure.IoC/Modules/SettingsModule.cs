@@ -18,6 +18,8 @@ namespace ConstellationMind.Infrastructure.IoC.Modules
         {
             builder.RegisterInstance(_configuration.GetSettings<AppSettings>("app"))
                 .SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<MongoDbSettings>("mongoDb"))
+                .SingleInstance();
         }
     }
 }

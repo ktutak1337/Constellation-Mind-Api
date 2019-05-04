@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using ConstellationMind.Infrastructure.IoC;
+using ConstellationMind.Infrastructure.Persistance.MongoDb.Interfaces;
 
 namespace ConstellationMind.Api
 {
@@ -34,7 +35,8 @@ namespace ConstellationMind.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime,
+            IMongoDbInitializer mongoDatabase)
         {
             if (env.IsDevelopment())
             {
@@ -49,6 +51,7 @@ namespace ConstellationMind.Api
             app.UseHttpsRedirection();
             app.UseMvc();
             applicationLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
+            await mongoDatabase.InitializeAsync();
         }
     }
 }
