@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
   </ItemGroup>
 
   <ItemGroup>

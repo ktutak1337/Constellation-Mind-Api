@@ -20,9 +20,9 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Player() {}
 
-        public Player(string email, string password, string nickname, string firstName = "")
+        public Player(Guid idnetity, string email, string password, string nickname, string firstName = "")
         {
-            Identity = Guid.NewGuid();
+            Identity = idnetity;
             Email = email.ToLowerInvariant();
             Password = password;
             Nickname = nickname;
