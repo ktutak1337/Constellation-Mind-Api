@@ -9,9 +9,9 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices.Interfaces
     public interface IPlayerService : IService
     {
         Task<PlayerDto> GetAsync(Guid identity);
-        Task<PlayerDto> GetAsync(string email);
         Task<IEnumerable<PlayerDto>> GetPlayersAsync();
-        Task RegisterAsync(string email, string password, string nickname, string firstName = "");
+        Task RegisterAsync(Guid identity, string email, string password, string nickname, string firstName = "");
         Task LoginAsync(string email, string password);
+        Task DeleteAsync(Guid identity);
     }
 }
