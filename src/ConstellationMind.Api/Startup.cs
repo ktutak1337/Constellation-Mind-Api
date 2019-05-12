@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using ConstellationMind.Infrastructure.IoC;
 using ConstellationMind.Infrastructure.Persistance.MongoDb.Interfaces;
+using FluentValidation.AspNetCore;
 
 namespace ConstellationMind.Api
 {
@@ -24,7 +25,9 @@ namespace ConstellationMind.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation();
             
             var builder = new ContainerBuilder();
             builder.Populate(services);
