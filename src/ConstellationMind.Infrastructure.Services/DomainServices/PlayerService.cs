@@ -14,14 +14,16 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
     {
         #region Fields
         private readonly IPlayerRepository _playerRepository;
+        private readonly IScoreboardRepository _scoreboardRepository;
         private readonly IMapper _mapper;
 
         #endregion
 
         #region Constructors
-        public PlayerService(IPlayerRepository playerRepository, IMapper mapper)
+        public PlayerService(IPlayerRepository playerRepository, IScoreboardRepository scoreboardRepository, IMapper mapper)
         {
             _playerRepository = playerRepository;
+            _scoreboardRepository = scoreboardRepository;
             _mapper = mapper;            
         }
 
@@ -32,14 +34,18 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
         {
             var player = await _playerRepository.GetAsync(identity);
 
-            return player == null ? null : _mapper.Map<Player, PlayerDto>(player);
+            return player == null 
+                ? null 
+                : _mapper.Map<Player, PlayerDto>(player);
         }
         
         public async Task<IEnumerable<PlayerDto>> GetPlayersAsync()
         {
             var players = await _playerRepository.GetAllAsync();
          
-            return players == null ? null : players.Select(player => _mapper.Map<Player, PlayerDto>(player));
+            return players == null 
+                ? null 
+                : players.Select(player => _mapper.Map<Player, PlayerDto>(player));
         }
 
         public Task LoginAsync(string email, string password)
@@ -54,7 +60,9 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
             if(player != null) throw new Exception($"Player with email: '{email}' already exists.");
            
             player = new Player(identity, email, password, nickname, firstName);
+            
             await _playerRepository.AddAsync(player);
+            await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
         }
 
         public async Task DeleteAsync(Guid identity) => await _playerRepository.RemoveAsync(identity);

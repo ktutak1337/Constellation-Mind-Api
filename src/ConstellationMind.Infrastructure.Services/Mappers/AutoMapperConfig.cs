@@ -11,6 +11,9 @@ namespace ConstellationMind.Infrastructure.Services.Mappers
             {
                 config.CreateMap<Player, PlayerDto>()
                     .ForMember(dto => dto.Id, x => x.MapFrom(player => player.Identity));
+                
+                config.CreateMap<PlayerScore, PlayerScoreDto>()
+                    .ForMember(dto => dto.PlayerId, x => x.MapFrom(playerScore => playerScore.Identity));
             })
             .CreateMapper(); 
     }

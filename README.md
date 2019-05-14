@@ -1,7 +1,7 @@
-**What is Constellation.Api?**
+**What is ConstellationMind.Api?**
 ----------------
 
-The Constellation.Api is a REST API, containing core features for Android Application called [Constellation Mind](https://play.google.com/store/apps/details?id=com.mygdx.newbraveconstellation&hl=en).
+The ConstellationMind.Api is a REST API, containing core features for Android Application called [Constellation Mind](https://play.google.com/store/apps/details?id=com.mygdx.newbraveconstellation&hl=en).
 
 **What is Constellation Mind?**
 ----------------
