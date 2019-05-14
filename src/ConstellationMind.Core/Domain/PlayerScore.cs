@@ -1,11 +1,12 @@
 using System;
+using ConstellationMind.Shared.Types;
 
 namespace ConstellationMind.Core.Domain
 {
-    public class PlayerScore
+    public class PlayerScore : IIdentity
     {
         #region Properties
-        public Guid PlayerId { get; protected set; }
+        public Guid Identity { get; protected set; }
         public string Nickname { get; protected set; }
         public int Points { get; protected set; }
 
@@ -13,18 +14,13 @@ namespace ConstellationMind.Core.Domain
 
         #region Constructors
         protected PlayerScore() {}
-        public PlayerScore(Player player)
+        public PlayerScore(Guid playerId, string nickname, int points)
         {
-            PlayerId = player.Identity;
-            Nickname = player.Nickname;
-            Points = player.Points;
+            Identity = playerId;
+            Nickname = nickname;
+            Points = points;
         }
 
-        #endregion
-
-        #region Methods
-        public static PlayerScore Create(Player player) => new PlayerScore(player);
-
-        #endregion    
+        #endregion 
     }
 }
