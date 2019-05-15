@@ -65,6 +65,18 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
             await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
         }
 
+        public async Task UpdatePointsAsync(Guid identity, int addPoints)
+        {
+            var player = await _playerRepository.GetAsync(identity);
+            
+            if(player == null) throw new Exception($"Player with id: '{identity}' does not exists.");
+           
+            player.UpdatePoints(addPoints);
+
+            await _playerRepository.UpdateAsync(player);
+            await _scoreboardRepository.UpdateAsync(new PlayerScore(player.Identity, player.Nickname, player.Points));
+        }
+
         public async Task DeleteAsync(Guid identity) => await _playerRepository.RemoveAsync(identity);
 
         #endregion

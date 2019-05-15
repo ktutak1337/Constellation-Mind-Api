@@ -31,6 +31,8 @@ namespace ConstellationMind.Core.Domain
             Points = 0;
         }
 
+        public void UpdatePoints(int addPoints) => Points += addPoints;
+
         #endregion
     }
 }

@@ -3,7 +3,7 @@ using ConstellationMind.Shared.Types;
 
 namespace ConstellationMind.Infrastructure.Services.Commands
 {
-    public class CreatePlayer : ICommand
+    public class CreatePlayer : ICommand, IIdentity
     {
         public Guid Identity { get; set; }
         public string Email { get; set; }

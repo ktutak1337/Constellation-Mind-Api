@@ -34,6 +34,15 @@ namespace ConstellationMind.Api.Controllers
             return CreatedAtAction(nameof(Get), new { Id = command.Identity }, command.Identity);
         }
 
+        // PUT api/players
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UpdatePlayerPoints command)
+        {
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        }
+
         // DELETE api/players/{id}
         [HttpDelete("{id}")]
         public async Task Delete([FromRoute] DeletePlayer command) => await Dispatcher.SendAsync(command);
