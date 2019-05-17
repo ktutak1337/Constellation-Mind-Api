@@ -1,5 +1,7 @@
 using System;
+using ConstellationMind.Shared.Extensions;
 using ConstellationMind.Shared.Types;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Core.Domain
 {
@@ -31,7 +33,17 @@ namespace ConstellationMind.Core.Domain
             Points = 0;
         }
 
+        #endregion
+
+        #region Methods
         public void UpdatePoints(int addPoints) => Points += addPoints;
+
+        public void SetPassword(string password, IPasswordHasher<Player> passwordHasher)
+        {
+            if(password.IsEmpty()) throw new Exception("Invalid password. Password can not be empty.");
+            
+            Password = passwordHasher.HashPassword(this, password);
+        }
 
         #endregion
     }

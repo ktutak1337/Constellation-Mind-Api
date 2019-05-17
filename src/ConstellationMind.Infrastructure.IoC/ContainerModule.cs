@@ -26,6 +26,7 @@ namespace ConstellationMind.Infrastructure.IoC
             builder.RegisterModule(new SettingsModule(_configuration));
             builder.RegisterModule<MongoDbModule>();        
             builder.RegisterModule<ValidationModule>();        
+            builder.RegisterModule<IdentityModule>();        
         }          
     }
 }
