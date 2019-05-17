@@ -10,7 +10,7 @@ namespace ConstellationMind.Core.Domain
         #region Properties
         public Guid Identity { get; protected set; }
         public string Email { get; protected set; }
-        public string Password { get; protected set; }
+        public string PasswordHash { get; protected set; }
         public string FirstName { get; protected set; }
         public string Nickname { get; protected set; }
         public int Points { get; protected set; }
@@ -22,14 +22,14 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Player() {}
 
-        public Player(Guid idnetity, string email, string password, string nickname, string firstName = "")
+        public Player(Guid idnetity, string email, string nickname, string firstName = "")
         {
             Identity = idnetity;
             Email = email.ToLowerInvariant();
-            Password = password;
             Nickname = nickname;
             FirstName = firstName;
             CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             Points = 0;
         }
 
@@ -42,8 +42,13 @@ namespace ConstellationMind.Core.Domain
         {
             if(password.IsEmpty()) throw new Exception("Invalid password. Password can not be empty.");
             
-            Password = passwordHasher.HashPassword(this, password);
+            PasswordHash = passwordHasher.HashPassword(this, password);
+
+            UpdatedAt = DateTime.UtcNow;
         }
+
+        public bool VerifyPassword(string password, IPasswordHasher<Player> passwordHasher)
+            => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) == PasswordVerificationResult.Success;
 
         #endregion
     }

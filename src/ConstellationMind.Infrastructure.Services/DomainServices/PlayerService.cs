@@ -65,7 +65,7 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
             
             if(player != null) throw new Exception($"Player with email: '{email}' already exists.");
            
-            player = new Player(identity, email, password, nickname, firstName);
+            player = new Player(identity, email, nickname, firstName);
             player.SetPassword(password, _passwordHasher);
 
             await _playerRepository.AddAsync(player);
