@@ -6,7 +6,7 @@ namespace ConstellationMind.Shared.Extensions
     {
         public static TModel GetSettings<TModel>(this IConfiguration configuration, string section = "") where TModel : new()
         {
-            if (!string.IsNullOrWhiteSpace(section))
+            if (!section.IsEmpty())
             {
                 var model = new TModel();
                 configuration.GetSection(section).Bind(model);

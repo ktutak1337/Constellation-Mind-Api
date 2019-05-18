@@ -43,7 +43,8 @@ namespace ConstellationMind.Infrastructure.Persistance.MongoDb
             if(await collections.AnyAsync()) return;
         }
 
-        private void RegisterConventions() => ConventionRegistry.Register("Conventions", new MongoDbConventions(), filter => true);
+        private void RegisterConventions()
+            => ConventionRegistry.Register("Conventions", new MongoDbConventions(), filter => true);
 
         #endregion
     }

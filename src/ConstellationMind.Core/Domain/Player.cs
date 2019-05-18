@@ -1,5 +1,7 @@
 using System;
+using ConstellationMind.Shared.Extensions;
 using ConstellationMind.Shared.Types;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Core.Domain
 {
@@ -8,7 +10,7 @@ namespace ConstellationMind.Core.Domain
         #region Properties
         public Guid Identity { get; protected set; }
         public string Email { get; protected set; }
-        public string Password { get; protected set; }
+        public string PasswordHash { get; protected set; }
         public string FirstName { get; protected set; }
         public string Nickname { get; protected set; }
         public int Points { get; protected set; }
@@ -20,16 +22,33 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Player() {}
 
-        public Player(Guid idnetity, string email, string password, string nickname, string firstName = "")
+        public Player(Guid idnetity, string email, string nickname, string firstName = "")
         {
             Identity = idnetity;
             Email = email.ToLowerInvariant();
-            Password = password;
             Nickname = nickname;
             FirstName = firstName;
             CreatedAt = DateTime.UtcNow;
+            UpdatedAt = DateTime.UtcNow;
             Points = 0;
         }
+
+        #endregion
+
+        #region Methods
+        public void UpdatePoints(int addPoints) => Points += addPoints;
+
+        public void SetPassword(string password, IPasswordHasher<Player> passwordHasher)
+        {
+            if(password.IsEmpty()) throw new Exception("Invalid password. Password can not be empty.");
+            
+            PasswordHash = passwordHasher.HashPassword(this, password);
+
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public bool VerifyPassword(string password, IPasswordHasher<Player> passwordHasher)
+            => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) == PasswordVerificationResult.Success;
 
         #endregion
     }

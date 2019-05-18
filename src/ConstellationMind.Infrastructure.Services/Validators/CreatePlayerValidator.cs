@@ -19,7 +19,7 @@ namespace ConstellationMind.Infrastructure.Services.Validators
             RuleFor(player => player.Password)
                 .NotEmpty()
                 .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z])")
-                .WithMessage("'Password' must contain at least one number, at least one uppercase letter, at least one lowercase letter, and at least one special character.")
+                .WithMessage("Invalid Password: 'password' must contain at least one number, at least one uppercase letter, at least one lowercase letter, and at least one special character.")
                 .Length(8, 64);  
 
             RuleFor(player => player.Email)

@@ -10,11 +10,9 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Players
         private readonly IPlayerService _playerService;
 
         public DeletePlayerHandler(IPlayerService playerService)
-        {
-            _playerService = playerService;
-        }
+            => _playerService = playerService;
 
         public async Task HandleAsync(DeletePlayer command)
-            => await _playerService.DeleteAsync(command.Id);
+            => await _playerService.DeleteAsync(command.PlayerId);
     }
 }
