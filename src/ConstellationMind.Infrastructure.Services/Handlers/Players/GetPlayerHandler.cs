@@ -10,7 +10,8 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Players
     {
         private readonly IPlayerService _playerService;
 
-        public GetPlayerHandler(IPlayerService playerService) => _playerService = playerService;
+        public GetPlayerHandler(IPlayerService playerService) 
+            => _playerService = playerService;
 
         public async Task<PlayerDto> HandleAsync(GetPlayer query) 
             => await _playerService.GetAsync(query.Id);

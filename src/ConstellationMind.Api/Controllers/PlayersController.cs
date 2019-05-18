@@ -31,7 +31,7 @@ namespace ConstellationMind.Api.Controllers
         {
             await Dispatcher.SendAsync(command);
         
-            return CreatedAtAction(nameof(Get), new { Id = command.Identity }, command.Identity);
+            return CreatedAtAction(nameof(Get), new { Id = command.PlayerId }, command.PlayerId);
         }
 
         // PUT api/players
@@ -44,8 +44,9 @@ namespace ConstellationMind.Api.Controllers
         }
 
         // DELETE api/players/{id}
-        [HttpDelete("{id}")]
-        public async Task Delete([FromRoute] DeletePlayer command) => await Dispatcher.SendAsync(command);
+        [HttpDelete("{playerId}")]
+        public async Task Delete([FromRoute] DeletePlayer command) 
+            => await Dispatcher.SendAsync(command);
 
     }
 }

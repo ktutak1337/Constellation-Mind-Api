@@ -5,6 +5,6 @@ namespace ConstellationMind.Infrastructure.Services.Commands
 {
     public class DeletePlayer : ICommand
     {
-        public Guid Id { get; set; }
+        public Guid PlayerId { get; set; }
     }
 }

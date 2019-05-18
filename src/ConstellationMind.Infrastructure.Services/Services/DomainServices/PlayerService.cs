@@ -7,6 +7,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
 using ConstellationMind.Infrastructure.Services.DTO;
+using ConstellationMind.Infrastructure.Services.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Infrastructure.Services.DomainServices
@@ -61,9 +62,7 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
 
         public async Task RegisterAsync(Guid identity, string email, string password, string nickname, string firstName = "")
         {
-            var player = await _playerRepository.GetAsync(email);
-            
-            if(player != null) throw new Exception($"Player with email: '{email}' already exists.");
+            var player = await _playerRepository.GetOrFailAsync(email);
            
             player = new Player(identity, email, nickname, firstName);
             player.SetPassword(password, _passwordHasher);
@@ -74,10 +73,8 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
 
         public async Task UpdatePointsAsync(Guid identity, int addPoints)
         {
-            var player = await _playerRepository.GetAsync(identity);
-            
-            if(player == null) throw new Exception($"Player with id: '{identity}' does not exists.");
-           
+            var player = await _playerRepository.GetOrFailAsync(identity);
+        
             player.UpdatePoints(addPoints);
 
             await _playerRepository.UpdateAsync(player);

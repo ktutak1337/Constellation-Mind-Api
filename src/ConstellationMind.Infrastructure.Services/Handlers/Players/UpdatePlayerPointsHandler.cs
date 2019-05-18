@@ -9,10 +9,8 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Players
     {
         private readonly IPlayerService _playerService;
 
-        public UpdatePlayerPointsHandler(IPlayerService playerService)
-        {
-            _playerService = playerService;
-        }
+        public UpdatePlayerPointsHandler(IPlayerService playerService) 
+            => _playerService = playerService;
 
         public async Task HandleAsync(UpdatePlayerPoints command)
             => await _playerService.UpdatePointsAsync(command.PlayerId, command.Points);

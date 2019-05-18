@@ -11,14 +11,15 @@ namespace ConstellationMind.Infrastructure.Persistance.Repositories
         private readonly IMongoDbRepository<PlayerScore> _repository;
 
         public ScoreboardRepository(IMongoDbRepository<PlayerScore> repository)
-        {
-            _repository = repository;
-        }
+            => _repository = repository;
 
-        public async Task AddAsync(PlayerScore playerScore) => await _repository.AddAsync(playerScore);
+        public async Task AddAsync(PlayerScore playerScore)
+            => await _repository.AddAsync(playerScore);
 
-        public async Task<IEnumerable<PlayerScore>> GetAllAsync() => await _repository.FindAsync();
+        public async Task<IEnumerable<PlayerScore>> GetAllAsync()
+            => await _repository.FindAsync();
 
-        public async Task UpdateAsync(PlayerScore playerScore) => await _repository.UpdateAsync(playerScore);
+        public async Task UpdateAsync(PlayerScore playerScore)
+            => await _repository.UpdateAsync(playerScore);
     }
 }

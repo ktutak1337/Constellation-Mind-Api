@@ -10,13 +10,11 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Players
     {
         private readonly IPlayerService _playerService;
 
-        public CreatePlayerHandler(IPlayerService playerService)
-        {
-            _playerService = playerService;
-        }
+        public CreatePlayerHandler(IPlayerService playerService) 
+            => _playerService = playerService;
 
         public async Task HandleAsync(CreatePlayer command)
             => await _playerService
-                .RegisterAsync(command.Identity = Guid.NewGuid(), command.Email, command.Password, command.Nickname, command.FirstName);
+                .RegisterAsync(command.PlayerId = Guid.NewGuid(), command.Email, command.Password, command.Nickname, command.FirstName);
     }
 }

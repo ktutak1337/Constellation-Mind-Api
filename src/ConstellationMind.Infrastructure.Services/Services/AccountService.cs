@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
+using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
@@ -20,9 +21,7 @@ namespace ConstellationMind.Infrastructure.Services.Services
 
         public async Task ChangePasswordAsync(Guid playerId, string currentPassword, string newPassword)
         {
-            var player = await _playerRepository.GetAsync(playerId);
-            
-            if (player == null) throw new Exception($"Player with id: '{playerId}' was not found.");
+            var player = await _playerRepository.GetOrFailAsync(playerId);
             
             if (!player.VerifyPassword(currentPassword, _passwordHasher)) throw new Exception("Invalid password.");
             
