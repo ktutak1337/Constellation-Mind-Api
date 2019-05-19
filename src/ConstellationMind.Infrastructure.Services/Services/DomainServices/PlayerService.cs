@@ -81,8 +81,11 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
             await _scoreboardRepository.UpdateAsync(new PlayerScore(player.Identity, player.Nickname, player.Points));
         }
 
-        public async Task DeleteAsync(Guid identity) 
-            => await _playerRepository.RemoveAsync(identity);
+        public async Task DeleteAsync(Guid identity)
+        {
+            await _playerRepository.RemoveAsync(identity);
+            await _scoreboardRepository.RemoveAsync(identity);
+        } 
 
         #endregion
     }

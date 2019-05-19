@@ -45,8 +45,12 @@ namespace ConstellationMind.Api.Controllers
 
         // DELETE api/players/{id}
         [HttpDelete("{playerId}")]
-        public async Task Delete([FromRoute] DeletePlayer command) 
-            => await Dispatcher.SendAsync(command);
+        public async Task<IActionResult> Delete([FromRoute] DeletePlayer command)
+        {
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        } 
 
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstellationMind.Core.Domain;
@@ -10,5 +11,6 @@ namespace ConstellationMind.Core.Repositories
         Task<IEnumerable<PlayerScore>> GetAllAsync();
         Task AddAsync(PlayerScore playerScore);
         Task UpdateAsync(PlayerScore playerScore);
+        Task RemoveAsync(Guid identity);
     }
 }
