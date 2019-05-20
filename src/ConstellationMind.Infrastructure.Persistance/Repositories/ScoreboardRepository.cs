@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstellationMind.Core.Domain;
@@ -21,5 +22,8 @@ namespace ConstellationMind.Infrastructure.Persistance.Repositories
 
         public async Task UpdateAsync(PlayerScore playerScore)
             => await _repository.UpdateAsync(playerScore);
+
+        public Task RemoveAsync(Guid identity)
+            => _repository.DeleteAsync(identity);  
     }
 }

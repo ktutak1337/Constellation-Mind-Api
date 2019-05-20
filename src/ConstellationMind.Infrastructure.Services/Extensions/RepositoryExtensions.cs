@@ -11,7 +11,7 @@ namespace ConstellationMind.Infrastructure.Services.Extensions
         {
             var player = await repository.GetAsync(playerId);
             
-            if(player == null) throw new Exception($"Player with user id: '{playerId}' was not found.");
+            if(player == null) throw new Exception($"Player with id: '{playerId}' was not found.");
             
             return player;            
         }
@@ -23,6 +23,15 @@ namespace ConstellationMind.Infrastructure.Services.Extensions
             if(player != null) throw new Exception($"Player with email: '{email}' already exists.");
             
             return player;            
+        }
+
+        public static async Task<Constellation> GetOrFailAsync(this IConstellationRepository repository, Guid constellationId)
+        {
+            var constellation = await repository.GetAsync(constellationId);
+            
+            if(constellation != null) throw new Exception($"Constellation with id: '{constellationId}' already exists.");
+            
+            return constellation;            
         }
     }
 }

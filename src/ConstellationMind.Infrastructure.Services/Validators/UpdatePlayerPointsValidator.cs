@@ -1,5 +1,5 @@
 using System;
-using ConstellationMind.Infrastructure.Services.Commands;
+using ConstellationMind.Infrastructure.Services.Commands.Players;
 using FluentValidation;
 
 namespace ConstellationMind.Infrastructure.Services.Validators
