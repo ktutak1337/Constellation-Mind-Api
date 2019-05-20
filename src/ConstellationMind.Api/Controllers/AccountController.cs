@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ConstellationMind.Infrastructure.Services.Commands;
+using ConstellationMind.Infrastructure.Services.Commands.Players;
 using ConstellationMind.Shared.Dispatchers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

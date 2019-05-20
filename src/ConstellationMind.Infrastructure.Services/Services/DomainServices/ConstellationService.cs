@@ -8,6 +8,7 @@ using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Infrastructure.Services.Services.DomainServices.Interfaces;
+using ConstellationMind.Shared.Extensions;
 
 namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
 {
@@ -23,22 +24,12 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
         }
 
         public async Task<ConstellationDto> GetAsync(Guid identity)
-        {
-            var constellation = await _constellationRepository.GetAsync(identity);
-
-            return constellation == null 
-                ? null 
-                : _mapper.Map<Constellation, ConstellationDto>(constellation);
-        }
+            => (await _constellationRepository.GetAsync(identity))
+                .MapSingle<Constellation, ConstellationDto>(_mapper);
 
         public async Task<IEnumerable<ConstellationDto>> GetConstellationsAsync()
-        {
-            var constellations = await _constellationRepository.GetAllAsync();
-         
-            return constellations == null 
-                ? null 
-                : constellations.Select(constellation => _mapper.Map<Constellation, ConstellationDto>(constellation));
-        }
+            => (await _constellationRepository.GetAllAsync())
+                .MapCollection<Constellation, ConstellationDto>(_mapper);
 
         public async Task CreateAsync(Guid identity, string name)
         {

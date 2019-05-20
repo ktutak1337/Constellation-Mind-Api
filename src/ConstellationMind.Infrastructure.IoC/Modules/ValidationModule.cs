@@ -1,7 +1,7 @@
 using System.Reflection;
 using Autofac;
 using ConstellationMind.Infrastructure.IoC.Helpers;
-using ConstellationMind.Infrastructure.Services.Commands;
+using ConstellationMind.Infrastructure.Services.Commands.Players;
 using FluentValidation;
 
 namespace ConstellationMind.Infrastructure.IoC.Modules

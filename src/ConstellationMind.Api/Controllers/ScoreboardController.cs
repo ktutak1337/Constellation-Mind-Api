@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstellationMind.Infrastructure.Services.DTO;
-using ConstellationMind.Infrastructure.Services.Queries;
+using ConstellationMind.Infrastructure.Services.Queries.Players;
 using ConstellationMind.Shared.Dispatchers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

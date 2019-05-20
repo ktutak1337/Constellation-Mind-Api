@@ -8,6 +8,7 @@ using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Extensions;
+using ConstellationMind.Shared.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Infrastructure.Services.DomainServices
@@ -38,22 +39,12 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
 
         #region Methods
         public async Task<PlayerDto> GetAsync(Guid identity)
-        {
-            var player = await _playerRepository.GetAsync(identity);
-
-            return player == null 
-                ? null 
-                : _mapper.Map<Player, PlayerDto>(player);
-        }
-        
+            => (await _playerRepository.GetAsync(identity))
+                .MapSingle<Player, PlayerDto>(_mapper);
+ 
         public async Task<IEnumerable<PlayerDto>> GetPlayersAsync()
-        {
-            var players = await _playerRepository.GetAllAsync();
-         
-            return players == null 
-                ? null 
-                : players.Select(player => _mapper.Map<Player, PlayerDto>(player));
-        }
+            => (await _playerRepository.GetAllAsync())
+                .MapCollection<Player, PlayerDto>(_mapper);
 
         public Task LoginAsync(string email, string password)
         {

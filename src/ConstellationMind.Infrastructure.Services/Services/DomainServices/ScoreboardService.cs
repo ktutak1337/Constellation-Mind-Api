@@ -6,6 +6,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
 using ConstellationMind.Infrastructure.Services.DTO;
+using ConstellationMind.Shared.Extensions;
 
 namespace ConstellationMind.Infrastructure.Services.DomainServices
 {
@@ -21,12 +22,7 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
         }
 
         public async Task<IEnumerable<PlayerScoreDto>> GetScoreboardAsync()
-        {
-            var scores = await _scoreboardRepository.GetAllAsync();
-         
-            return scores == null 
-                ? null 
-                : scores.Select(player => _mapper.Map<PlayerScore, PlayerScoreDto>(player));
-        }
+            => (await _scoreboardRepository.GetAllAsync())
+                .MapCollection<PlayerScore, PlayerScoreDto>(_mapper);
     }
 }
