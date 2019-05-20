@@ -14,6 +14,11 @@ namespace ConstellationMind.Infrastructure.Services.Mappers
                 
                 config.CreateMap<PlayerScore, PlayerScoreDto>()
                     .ForMember(dto => dto.PlayerId, x => x.MapFrom(playerScore => playerScore.Identity));
+
+                config.CreateMap<Constellation, ConstellationDto>()
+                    .ForMember(dto => dto.Id, x => x.MapFrom(constellation => constellation.Identity));
+
+                config.CreateMap<Star, StarDto>();    
             })
             .CreateMapper(); 
     }

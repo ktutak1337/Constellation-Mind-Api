@@ -25,9 +25,9 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Constellation() {}
 
-        public Constellation(string name)
+        public Constellation(Guid identity, string name)
         {
-            Identity = Guid.NewGuid();
+            Identity = identity;
             Name = name;
         }
 

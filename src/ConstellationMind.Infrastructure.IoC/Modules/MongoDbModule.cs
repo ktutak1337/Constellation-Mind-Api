@@ -33,7 +33,12 @@ namespace ConstellationMind.Infrastructure.IoC.Modules
             builder.Register(context => 
                 new MongoDbRepository<PlayerScore>(database: context.Resolve<IMongoDatabase>(), collectionName: "Scoreboard"))
                     .As<IMongoDbRepository<PlayerScore>>()
-                    .InstancePerLifetimeScope();            
+                    .InstancePerLifetimeScope();
+
+            builder.Register(context => 
+                new MongoDbRepository<Constellation>(database: context.Resolve<IMongoDatabase>(), collectionName: "Constellations"))
+                    .As<IMongoDbRepository<Constellation>>()
+                    .InstancePerLifetimeScope();              
         }
     }
 }
