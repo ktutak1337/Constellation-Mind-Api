@@ -21,9 +21,13 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
             _mapper = mapper;
         }
 
-        public Task<ConstellationDto> GetAsync(Guid identity)
+        public async Task<ConstellationDto> GetAsync(Guid identity)
         {
-            throw new NotImplementedException();
+            var constellation = await _constellationRepository.GetAsync(identity);
+
+            return constellation == null 
+                ? null 
+                : _mapper.Map<Constellation, ConstellationDto>(constellation);
         }
 
         public Task<IEnumerable<ConstellationDto>> GetConstellationsAsync()
