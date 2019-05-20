@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConstellationMind.Core.Domain;
@@ -30,9 +31,13 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
                 : _mapper.Map<Constellation, ConstellationDto>(constellation);
         }
 
-        public Task<IEnumerable<ConstellationDto>> GetConstellationsAsync()
+        public async Task<IEnumerable<ConstellationDto>> GetConstellationsAsync()
         {
-            throw new NotImplementedException();
+            var constellations = await _constellationRepository.GetAllAsync();
+         
+            return constellations == null 
+                ? null 
+                : constellations.Select(constellation => _mapper.Map<Constellation, ConstellationDto>(constellation));
         }
 
         public async Task CreateAsync(Guid identity, string name)

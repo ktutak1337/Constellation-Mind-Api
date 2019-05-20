@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstellationMind.Infrastructure.Services.Commands.Constellations;
 using ConstellationMind.Infrastructure.Services.DTO;
@@ -18,6 +19,11 @@ namespace ConstellationMind.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ConstellationDto>> Get([FromRoute] GetConstellation query) 
             => Single(await Dispatcher.QueryAsync(query));
+
+        // GET api/constellations
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ConstellationDto>>> Get([FromRoute] GetConstellations query) 
+            => SelectMany(await Dispatcher.QueryAsync(query));
 
         // POST api/constellations
         [HttpPost]
