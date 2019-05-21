@@ -40,9 +40,17 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
             await _constellationRepository.AddAsync(constellation);
         }
 
-        public Task AddStarAsync(Guid identity, string name, string constellation, double Ra, double Dec, double brightness)
+        public async Task AddStarAsync(Guid constellationId, string name, string constellation, double Ra, double Dec, double brightness)
         {
-            throw new NotImplementedException();
+            var @const = await _constellationRepository.GetAsync(constellationId);
+
+            if(@const == null) throw new Exception($"Constellation with id: '{constellationId}' was not found.");
+
+            var star = new Star(name, constellation, Ra, Dec, brightness);
+
+            @const.AddStar(star);
+
+            await _constellationRepository.UpdateAsync(@const);
         }
 
         public Task DeleteAsync(Guid identity)

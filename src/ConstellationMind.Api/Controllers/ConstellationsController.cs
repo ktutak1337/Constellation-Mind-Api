@@ -32,6 +32,15 @@ namespace ConstellationMind.Api.Controllers
             await Dispatcher.SendAsync(command);
             
             return CreatedAtAction(nameof(Get), new { Id = command.Id }, command.Id);
+        }
+
+        // PUT api/constellations
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] AddStarToConstellation command)
+        {
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
         }        
     }
 }
