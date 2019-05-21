@@ -41,6 +41,15 @@ namespace ConstellationMind.Api.Controllers
             await Dispatcher.SendAsync(command);
 
             return NoContent();
-        }        
+        }
+
+        // DELETE api/constellations/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteConstellation command)
+        {
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        }         
     }
 }

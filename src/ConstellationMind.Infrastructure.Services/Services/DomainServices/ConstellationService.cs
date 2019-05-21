@@ -53,9 +53,7 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
             await _constellationRepository.UpdateAsync(@const);
         }
 
-        public Task DeleteAsync(Guid identity)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task DeleteAsync(Guid identity)
+            => await _constellationRepository.RemoveAsync(identity);
     }
 }
