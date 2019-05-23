@@ -11,12 +11,32 @@ namespace ConstellationMind.Infrastructure.Services.Services
     public class AccountService : IAccountService
     {
         private readonly IPlayerRepository _playerRepository;
+        private readonly IScoreboardRepository _scoreboardRepository;
         private readonly IPasswordHasher<Player> _passwordHasher;
 
-        public AccountService(IPlayerRepository playerRepository, IPasswordHasher<Player> passwordHasher)
+        public AccountService(IPlayerRepository playerRepository,
+                              IScoreboardRepository scoreboardRepository, 
+                              IPasswordHasher<Player> passwordHasher)
         {
             _playerRepository = playerRepository;
+            _scoreboardRepository= scoreboardRepository;
             _passwordHasher = passwordHasher;
+        }
+
+        public async Task SignUpAsync(Guid identity, string email, string password, string nickname, string firstName = "")
+        {
+            var player = await _playerRepository.GetOrFailAsync(email);
+           
+            player = new Player(identity, email, nickname, firstName);
+            player.SetPassword(password, _passwordHasher);
+
+            await _playerRepository.AddAsync(player);
+            await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
+        }
+
+        public Task SignInAsync(string email, string password)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task ChangePasswordAsync(Guid playerId, string currentPassword, string newPassword)
@@ -28,5 +48,6 @@ namespace ConstellationMind.Infrastructure.Services.Services
             player.SetPassword(newPassword, _passwordHasher);
             await _playerRepository.UpdateAsync(player);
         }
+
     }
 }

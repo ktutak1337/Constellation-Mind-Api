@@ -1,4 +1,4 @@
-using ConstellationMind.Infrastructure.Services.Commands.Players;
+using ConstellationMind.Infrastructure.Services.Commands.Accounts;
 using FluentValidation;
 
 namespace ConstellationMind.Infrastructure.Services.Validators

@@ -1,11 +1,11 @@
-using ConstellationMind.Infrastructure.Services.Commands.Players;
+using ConstellationMind.Infrastructure.Services.Commands.Accounts;
 using FluentValidation;
 
 namespace ConstellationMind.Infrastructure.Services.Validators
 {
-    public class CreatePlayerValidator : AbstractValidator<CreatePlayer>
+    public class SignUpValidator : AbstractValidator<SignUp>
     {
-        public CreatePlayerValidator()
+        public SignUpValidator()
         {
             RuleFor(player => player.FirstName)
                 .Matches(@"^[a-zA-Z]+$")

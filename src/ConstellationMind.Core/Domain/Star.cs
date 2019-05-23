@@ -1,5 +1,3 @@
-using System;
-
 namespace ConstellationMind.Core.Domain
 {
     public class Star

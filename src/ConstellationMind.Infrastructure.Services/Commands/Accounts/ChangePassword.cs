@@ -1,7 +1,7 @@
 using System;
 using ConstellationMind.Shared.Types;
 
-namespace ConstellationMind.Infrastructure.Services.Commands.Players
+namespace ConstellationMind.Infrastructure.Services.Commands.Accounts
 {
     public class ChangePassword : ICommand
     {

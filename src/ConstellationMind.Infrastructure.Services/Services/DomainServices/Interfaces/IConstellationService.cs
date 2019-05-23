@@ -11,7 +11,7 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices.Inte
          Task<ConstellationDto> GetAsync(Guid identity);
          Task<IEnumerable<ConstellationDto>> GetConstellationsAsync();
          Task CreateAsync(Guid identity, string name);
-         Task AddStarAsync(Guid identity, string name, string constellation, double Ra, double Dec, double brightness);
+         Task AddStarAsync(Guid constellationId, string name, string constellation, double Ra, double Dec, double brightness);
          Task DeleteAsync(Guid identity);
     }
 }
