@@ -46,22 +46,6 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
             => (await _playerRepository.GetAllAsync())
                 .MapCollection<Player, PlayerDto>(_mapper);
 
-        public Task LoginAsync(string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task RegisterAsync(Guid identity, string email, string password, string nickname, string firstName = "")
-        {
-            var player = await _playerRepository.GetOrFailAsync(email);
-           
-            player = new Player(identity, email, nickname, firstName);
-            player.SetPassword(password, _passwordHasher);
-
-            await _playerRepository.AddAsync(player);
-            await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
-        }
-
         public async Task UpdatePointsAsync(Guid identity, int addPoints)
         {
             var player = await _playerRepository.GetOrFailAsync(identity);

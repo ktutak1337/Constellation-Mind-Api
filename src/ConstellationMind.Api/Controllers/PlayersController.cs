@@ -25,15 +25,6 @@ namespace ConstellationMind.Api.Controllers
         public async Task<ActionResult<IEnumerable<PlayerDto>>> Get([FromRoute] GetPlayers query) 
             => SelectMany(await Dispatcher.QueryAsync(query));
 
-        // POST api/players
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreatePlayer command)
-        {
-            await Dispatcher.SendAsync(command);
-        
-            return CreatedAtAction(nameof(Get), new { Id = command.PlayerId }, command.PlayerId);
-        }
-
         // PUT api/players
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdatePlayerPoints command)
