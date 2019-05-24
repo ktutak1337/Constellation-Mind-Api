@@ -34,9 +34,12 @@ namespace ConstellationMind.Infrastructure.Services.Services
             await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
         }
 
-        public Task SignInAsync(string email, string password)
+        public async Task SignInAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            var player = await _playerRepository.GetAsync(email);
+            if (player != null && player.VerifyPassword(password, _passwordHasher)) return;
+
+            throw new Exception("Invalid credentials.");
         }
 
         public async Task ChangePasswordAsync(Guid playerId, string currentPassword, string newPassword)
