@@ -9,6 +9,7 @@ using Autofac.Extensions.DependencyInjection;
 using ConstellationMind.Infrastructure.IoC;
 using ConstellationMind.Infrastructure.Persistance.MongoDb.Interfaces;
 using FluentValidation.AspNetCore;
+using ConstellationMind.Api.Extensions;
 
 namespace ConstellationMind.Api
 {
@@ -51,6 +52,7 @@ namespace ConstellationMind.Api
                 app.UseHsts();
             }
 
+            app.UseErrorHandler();
             app.UseHttpsRedirection();
             app.UseMvc();
             applicationLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());

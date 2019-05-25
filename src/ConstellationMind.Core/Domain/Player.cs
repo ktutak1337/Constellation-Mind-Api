@@ -1,4 +1,5 @@
 using System;
+using ConstellationMind.Shared.Exceptions;
 using ConstellationMind.Shared.Extensions;
 using ConstellationMind.Shared.Types;
 using Microsoft.AspNetCore.Identity;
@@ -40,7 +41,7 @@ namespace ConstellationMind.Core.Domain
 
         public void SetPassword(string password, IPasswordHasher<Player> passwordHasher)
         {
-            if(password.IsEmpty()) throw new Exception("Invalid password. Password can not be empty.");
+            if(password.IsEmpty()) throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Password can not be empty.");
             
             PasswordHash = passwordHasher.HashPassword(this, password);
 

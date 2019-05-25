@@ -8,6 +8,7 @@ using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Infrastructure.Services.Services.DomainServices.Interfaces;
+using ConstellationMind.Shared.Exceptions;
 using ConstellationMind.Shared.Extensions;
 
 namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
@@ -44,7 +45,7 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
         {
             var @const = await _constellationRepository.GetAsync(constellationId);
 
-            if(@const == null) throw new Exception($"Constellation with id: '{constellationId}' was not found.");
+            if(@const == null) throw new ConstellationMindException(ErrorCodes.ConstellationNotFound, $"Constellation with id: '{constellationId}' was not found.");
 
             var star = new Star(name, constellation, Ra, Dec, brightness);
 

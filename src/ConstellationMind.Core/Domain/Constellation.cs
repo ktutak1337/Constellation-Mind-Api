@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ConstellationMind.Shared.Types;
 using System.Linq;
+using ConstellationMind.Shared.Exceptions;
 
 namespace ConstellationMind.Core.Domain
 {
@@ -38,7 +39,7 @@ namespace ConstellationMind.Core.Domain
         {
             var item = _stars.SingleOrDefault(x => x.Name == star.Name);
 
-             if(item != null) throw new Exception($"star with name: {star.Name} already exists");
+             if(item != null) throw new ConstellationMindException(ErrorCodes.StarAlreadyExist, $"Star with name: '{star.Name}' already exists");
 
              _stars.Add(star);
         }

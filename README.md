@@ -41,5 +41,5 @@ Follow these steps to get your development environment set up:
 &nbsp;&nbsp;&nbsp;&nbsp;`~$ "<your_installation_path>\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db"`.<br/>
 5. Finally, service can be started locally within `/src/ConstellationMind.Api` directory (by default it will be available under `http://localhost:5000`) using the following command:
 ```csharp
-dotnet run
+~$ dotnet run
 ```

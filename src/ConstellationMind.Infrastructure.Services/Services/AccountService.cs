@@ -4,6 +4,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Infrastructure.Services.Services.Interfaces;
+using ConstellationMind.Shared.Exceptions;
 using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Infrastructure.Services.Services
@@ -39,14 +40,14 @@ namespace ConstellationMind.Infrastructure.Services.Services
             var player = await _playerRepository.GetAsync(email);
             if (player != null && player.VerifyPassword(password, _passwordHasher)) return;
 
-            throw new Exception("Invalid credentials.");
+            throw new ConstellationMindException(ErrorCodes.InvalidCredentials, "Invalid credentials.");
         }
 
         public async Task ChangePasswordAsync(Guid playerId, string currentPassword, string newPassword)
         {
             var player = await _playerRepository.GetOrFailAsync(playerId);
             
-            if (!player.VerifyPassword(currentPassword, _passwordHasher)) throw new Exception("Invalid password.");
+            if (!player.VerifyPassword(currentPassword, _passwordHasher)) throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Invalid password.");
             
             player.SetPassword(newPassword, _passwordHasher);
             await _playerRepository.UpdateAsync(player);
