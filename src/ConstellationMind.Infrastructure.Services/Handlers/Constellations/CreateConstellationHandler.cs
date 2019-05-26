@@ -14,6 +14,6 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Constellations
             => _constellationService = constellationService;
 
         public async Task HandleAsync(CreateConstellation command)
-            => await _constellationService.CreateAsync(command.Id = Guid.NewGuid(), command.Name);
+            => await _constellationService.CreateAsync(command.Id = Guid.NewGuid(), command.Designation, command.Name);
     }
 }

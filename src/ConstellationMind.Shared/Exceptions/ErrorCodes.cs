@@ -13,6 +13,8 @@ namespace ConstellationMind.Shared.Exceptions
         public static string ConstellationNotFound => "Constellation_not_found";
         public static string StarAlreadyExist => "Star_already_exist";
         public static string ConstellationAlreadyExist => "Constellation_already_exist";
+        public static string CoordinatesAlreadyExist => "Coordinates_already_exist";
         public static string PlayerAlreadyExist => "Player_already_exist";
+        public static string NullOrEmptyCollection => "Null_or_empty_collection";
     }
 }

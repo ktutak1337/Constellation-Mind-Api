@@ -32,22 +32,22 @@ namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
             => (await _constellationRepository.GetAllAsync())
                 .MapCollection<Constellation, ConstellationDto>(_mapper);
 
-        public async Task CreateAsync(Guid identity, string name)
+        public async Task CreateAsync(Guid identity, string designation, string name)
         {
             var constellation = await _constellationRepository.GetOrFailAsync(identity);
 
-            constellation = new Constellation(identity, name);
+            constellation = new Constellation(identity, designation, name);
 
             await _constellationRepository.AddAsync(constellation);
         }
 
-        public async Task AddStarAsync(Guid constellationId, string name, string constellation, double Ra, double Dec, double brightness)
+        public async Task AddStarAsync(Guid constellationId, string designation, string name, string constellation, EquatorialCoordinates coordinates, double magnitude)
         {
             var @const = await _constellationRepository.GetAsync(constellationId);
 
             if(@const == null) throw new ConstellationMindException(ErrorCodes.ConstellationNotFound, $"Constellation with id: '{constellationId}' was not found.");
 
-            var star = new Star(name, constellation, Ra, Dec, brightness);
+            var star = new Star(designation, name, constellation, coordinates, magnitude);
 
             @const.AddStar(star);
 

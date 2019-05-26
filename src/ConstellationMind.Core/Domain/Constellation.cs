@@ -10,16 +10,29 @@ namespace ConstellationMind.Core.Domain
     {
         #region Fields
         private ISet<Star> _stars = new HashSet<Star>();
+        private ISet<ConstellationLines> _lines = new HashSet<ConstellationLines>();
+        private ISet<EquatorialCoordinates> _bounds = new HashSet<EquatorialCoordinates>();
 
         #endregion
 
         #region Properties
         public Guid Identity { get; protected set; }
+        public string Designation { get; protected set; }
         public string Name { get; protected set; }
         public IEnumerable<Star> Stars
         {
             get { return _stars; }
             set { _stars = new HashSet<Star>(value); }
+        }
+        public IEnumerable<ConstellationLines> Lines
+        {
+            get { return _lines; }
+            set { _lines = new HashSet<ConstellationLines>(value); }
+        }
+        public IEnumerable<EquatorialCoordinates> Bounds
+        {
+            get { return _bounds; }
+            set { _bounds = new HashSet<EquatorialCoordinates>(value); }
         }
 
         #endregion
@@ -27,9 +40,10 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Constellation() {}
 
-        public Constellation(Guid identity, string name)
+        public Constellation(Guid identity, string designation, string name)
         {
             Identity = identity;
+            Designation = designation;
             Name = name;
         }
 
