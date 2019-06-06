@@ -20,6 +20,15 @@ namespace ConstellationMind.Api.Controllers
         
             return CreatedAtAction("Get", "Players", new { Id = command.PlayerId }, command.PlayerId);
         }
+
+        // POST api/accounts/sign-in
+        [HttpPost("sign-in")]
+        public async Task<IActionResult> Post([FromBody] SignIn command)
+        {
+            await Dispatcher.SendAsync(command);
+            
+            return NoContent();
+        }
         
         // PUT api/accounts/me/password
         [HttpPut]

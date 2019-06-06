@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
+using ConstellationMind.Shared.Exceptions;
 
 namespace ConstellationMind.Infrastructure.Services.Extensions
 {
@@ -11,7 +12,8 @@ namespace ConstellationMind.Infrastructure.Services.Extensions
         {
             var player = await repository.GetAsync(playerId);
             
-            if(player == null) throw new Exception($"Player with id: '{playerId}' was not found.");
+            if(player == null) 
+                throw new ConstellationMindException(ErrorCodes.PlayerNotFound, $"Player with id: '{playerId}' was not found.");
             
             return player;            
         }
@@ -20,7 +22,8 @@ namespace ConstellationMind.Infrastructure.Services.Extensions
         {
             var player = await repository.GetAsync(email);
             
-            if(player != null) throw new Exception($"Player with email: '{email}' already exists.");
+            if(player != null) 
+                throw new ConstellationMindException(ErrorCodes.EmailInUse, $"Player with email: '{email}' already exists.");
             
             return player;            
         }
@@ -29,7 +32,9 @@ namespace ConstellationMind.Infrastructure.Services.Extensions
         {
             var constellation = await repository.GetAsync(constellationId);
             
-            if(constellation != null) throw new Exception($"Constellation with id: '{constellationId}' already exists.");
+            if(constellation != null) 
+                throw new ConstellationMindException(ErrorCodes.ConstellationAlreadyExist,
+                    $"Constellation: '{constellation.Name}' with id: '{constellationId}' already exists.");
             
             return constellation;            
         }

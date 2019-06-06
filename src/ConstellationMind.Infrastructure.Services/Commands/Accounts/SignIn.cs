@@ -1,10 +1,10 @@
-using ConstellationMind.Infrastructure.Services.Commands.Players;
 using ConstellationMind.Shared.Types;
 
 namespace ConstellationMind.Infrastructure.Services.Commands.Accounts
 {
-    public class SignUp : CreatePlayer, ICommand
+    public class SignIn : ICommand
     {
-
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

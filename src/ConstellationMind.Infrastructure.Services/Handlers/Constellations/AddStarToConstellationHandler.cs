@@ -15,6 +15,6 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Constellations
 
         public async Task HandleAsync(AddStarToConstellation command)
             => await _constellationService
-                .AddStarAsync(command.ConstellationId, command.Name, command.Constellation, command.Ra, command.Dec, command.Brightness);
+                .AddStarAsync(command.ConstellationId, command.Designation, command.Name, command.Constellation, command.Coordinates, command.Magnitude);
     }
 }
