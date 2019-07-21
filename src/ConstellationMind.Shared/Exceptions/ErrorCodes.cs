@@ -10,6 +10,7 @@ namespace ConstellationMind.Shared.Exceptions
         public static string InvalidRole => "Invalid_role";
         public static string PlayerNotFound => "Player_not_found";
         public static string StarNotFound => "Star_not_found";
+        public static string PlayerIdIsNullOrEmpty => "Player_ID_is_null_or_empty";
         public static string ConstellationNotFound => "Constellation_not_found";
         public static string StarAlreadyExist => "Star_already_exist";
         public static string ConstellationAlreadyExist => "Constellation_already_exist";

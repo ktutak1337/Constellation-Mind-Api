@@ -14,6 +14,7 @@ namespace ConstellationMind.Core.Domain
         public string PasswordHash { get; protected set; }
         public string FirstName { get; protected set; }
         public string Nickname { get; protected set; }
+        public string Role { get; protected set; }
         public int Points { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
@@ -23,12 +24,13 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Player() {}
 
-        public Player(Guid idnetity, string email, string nickname, string firstName = "")
+        public Player(Guid idnetity, string email, string nickname, string firstName, string role)
         {
             Identity = idnetity;
             Email = email.ToLowerInvariant();
             Nickname = nickname;
-            FirstName = firstName;
+            FirstName = firstName ?? string.Empty;
+            Role = role ?? string.Empty;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Points = 0;
