@@ -1,0 +1,47 @@
+trigger:
+- master
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  imageName: 'constellation-mind-api'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Run unit tests and integration tests
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    zipAfterPublish: True
+
+- script: |
+  displayName: build and push docker image
+    docker login -u $(docker_username) -p $pswd
+    docker build -f ./src/ConstellationMind.Api -t $(imageName) ./src/ConstellationMind.Api
+    docker tag $(imageName) $(docker_username)/$(imageName)
+    docker push $(docker_username)/$(imageName)
+  env:
+    pswd: $(docker_password)

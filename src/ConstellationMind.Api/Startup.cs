@@ -30,6 +30,8 @@ namespace ConstellationMind.Api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation();
             
+            services.AddJwt();
+            
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
@@ -53,6 +55,7 @@ namespace ConstellationMind.Api
             }
 
             app.UseErrorHandler();
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
             applicationLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
