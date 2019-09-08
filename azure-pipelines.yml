@@ -39,9 +39,10 @@ steps:
 
 - script: |
   displayName: build and push docker image
-    docker login -u $(docker_username) -p $pswd
+    docker login -u $username -p $pswd
     docker build -f ./src/ConstellationMind.Api -t $(imageName) ./src/ConstellationMind.Api
     docker tag $(imageName) $(docker_username)/$(imageName)
     docker push $(docker_username)/$(imageName)
   env:
-    pswd: $(docker_password)
+    username: $(docker_username)
+    pswd: $(docker_password)    
