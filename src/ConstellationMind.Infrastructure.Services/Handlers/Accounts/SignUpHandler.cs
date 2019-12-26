@@ -15,6 +15,6 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Accounts
 
         public async Task HandleAsync(SignUp command)
             => await _accountService
-                .SignUpAsync(command.PlayerId = Guid.NewGuid(), command.Email, command.Password, command.Nickname, command.FirstName);
+                .SignUpAsync(command.PlayerId = Guid.NewGuid(), command.Email, command.Password, command.Nickname, command.FirstName, command.Role);
     }
 }

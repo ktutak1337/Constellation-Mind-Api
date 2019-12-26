@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  api:
+    build: ../
+    container_name: constellation-mind-api
+    depends_on:
+      - mongo
+    ports:
+      - '5000:5000'
+    networks:
+      - const-mind
+  
+  mongo:
+    image: mongo:3.6
+    container_name: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - const-mind  
+    volumes:
+      - mongo:/data/db
+
+networks:
+  const-mind:
+    name: constellation-mind-network
+
+volumes:
+  mongo:
+    driver: local

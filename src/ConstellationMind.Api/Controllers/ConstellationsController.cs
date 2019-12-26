@@ -4,10 +4,12 @@ using ConstellationMind.Infrastructure.Services.Commands.Constellations;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Queries.Constellations;
 using ConstellationMind.Shared.Dispatchers.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstellationMind.Api.Controllers
 {
+    [Authorize(Roles = "Admin, Player")]
     public class ConstellationsController : BaseController
     {
         public ConstellationsController(IDispatcher dispatcher) : base(dispatcher)

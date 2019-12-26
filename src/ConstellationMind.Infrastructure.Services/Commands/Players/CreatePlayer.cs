@@ -1,4 +1,5 @@
 using System;
+using ConstellationMind.Core.Domain;
 using ConstellationMind.Shared.Types;
 
 namespace ConstellationMind.Infrastructure.Services.Commands.Players
@@ -10,5 +11,6 @@ namespace ConstellationMind.Infrastructure.Services.Commands.Players
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string Nickname { get; set; }        
+        public string Role { get; set; }        
     }
 }

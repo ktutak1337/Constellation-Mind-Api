@@ -1,5 +1,7 @@
 using System.Reflection;
 using Autofac;
+using ConstellationMind.Infrastructure.Services.Authentication;
+using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
 using ConstellationMind.Infrastructure.Services.DomainServices;
 using ConstellationMind.Shared.Types;
 
@@ -17,6 +19,10 @@ namespace ConstellationMind.Infrastructure.IoC.Modules
                    .Where(x => x.IsAssignableTo<IService>())
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
+
+            builder.RegisterType<JwtProvider>()
+                .As<IJwtProvider>()
+                .SingleInstance();       
         }
     }
 }
