@@ -4,7 +4,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
 using ConstellationMind.Infrastructure.Services.Services;
-using Microsoft.AspNetCore.Identity;
+using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 
@@ -15,7 +15,7 @@ namespace ConstellationMind.UnitTests.Services
     {
         private Mock<IPlayerRepository> _playerRepositoryMock;
         private Mock<IScoreboardRepository> _scoreboardRepositoryMock;
-        private Mock<IPasswordHasher<Player>> _passwordHasherMock;
+        private Mock<IPasswordService> _passwordServiceMock;
         private Mock<IJwtProvider> _jwtProviderMock;
 
         [SetUp]
@@ -23,7 +23,7 @@ namespace ConstellationMind.UnitTests.Services
         {
             _playerRepositoryMock = new Mock<IPlayerRepository>();
             _scoreboardRepositoryMock = new Mock<IScoreboardRepository>();
-            _passwordHasherMock = new Mock<IPasswordHasher<Player>>();
+            _passwordServiceMock = new Mock<IPasswordService>();
             _jwtProviderMock = new Mock<IJwtProvider>();
         }
 
@@ -34,7 +34,7 @@ namespace ConstellationMind.UnitTests.Services
 
             var accountService = new AccountService(_playerRepositoryMock.Object,
                                                     _scoreboardRepositoryMock.Object,
-                                                    _passwordHasherMock.Object,
+                                                    _passwordServiceMock.Object,
                                                     _jwtProviderMock.Object);                                      
 
             // ------------====   Act   ====------------

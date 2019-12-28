@@ -3,7 +3,10 @@ using Autofac;
 using ConstellationMind.Infrastructure.Services.Authentication;
 using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
 using ConstellationMind.Infrastructure.Services.DomainServices;
+using ConstellationMind.Infrastructure.Services.Services;
+using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using ConstellationMind.Shared.Types;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Infrastructure.IoC.Modules
 {
@@ -11,6 +14,18 @@ namespace ConstellationMind.Infrastructure.IoC.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<PasswordService>()
+                .As<IPasswordService>()
+                .SingleInstance();  
+
+            builder.RegisterType<PasswordHasher<IPasswordService>>()
+                .As<IPasswordHasher<IPasswordService>>()
+                .SingleInstance();
+
+            builder.RegisterType<JwtProvider>()
+                .As<IJwtProvider>()
+                .SingleInstance();
+
            var assembly = typeof(PlayerService)
                 .GetTypeInfo()
                 .Assembly;
@@ -19,10 +34,6 @@ namespace ConstellationMind.Infrastructure.IoC.Modules
                    .Where(x => x.IsAssignableTo<IService>())
                    .AsImplementedInterfaces()
                    .InstancePerLifetimeScope();
-
-            builder.RegisterType<JwtProvider>()
-                .As<IJwtProvider>()
-                .SingleInstance();       
         }
     }
 }

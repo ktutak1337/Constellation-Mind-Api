@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using ConstellationMind.Core.Domain;
 using ConstellationMind.Infrastructure.Services.Authentication;
 using ConstellationMind.Shared.Types;
 
