@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +10,7 @@ using ConstellationMind.Infrastructure.IoC;
 using ConstellationMind.Infrastructure.Persistance.MongoDb.Interfaces;
 using FluentValidation.AspNetCore;
 using ConstellationMind.Api.Extensions;
+using ConstellationMind.Shared.Extensions;
 
 namespace ConstellationMind.Api
 {
@@ -29,6 +29,7 @@ namespace ConstellationMind.Api
         {
             services.AddControllers();
             services.AddMvc().AddFluentValidation();
+            services.AddSwaggerDocs();
             services.AddJwt();
             
             var builder = new ContainerBuilder();
@@ -62,6 +63,8 @@ namespace ConstellationMind.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwaggerDocs();
 
             applicationLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
             await mongoDatabase.InitializeAsync();
