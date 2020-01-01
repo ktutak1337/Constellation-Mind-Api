@@ -29,7 +29,7 @@ namespace ConstellationMind.Infrastructure.Services.Services
             _jwtProvider = jwtProvider;
         }
 
-        public async Task SignUpAsync(Guid identity, string email, string password, string nickname, string firstName, string role)
+        public async Task SignUpAsync(Guid identity, string email, string password, string nickname, string firstName, string role = Role.Player)
         {
             if(password.IsEmpty()) 
                 throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Password can not be empty.");
@@ -37,7 +37,7 @@ namespace ConstellationMind.Infrastructure.Services.Services
             var player = await _playerRepository.GetOrFailAsync(email);
             var hashedPassword = _passwordService.HashPassword(password);
             
-            player = new Player(identity, email, hashedPassword, nickname, firstName, role);
+            player = new Player(identity, email, hashedPassword, nickname, firstName, Role.IsValid(role) ? role : string.Empty);
             
             await _playerRepository.AddAsync(player);
             await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
