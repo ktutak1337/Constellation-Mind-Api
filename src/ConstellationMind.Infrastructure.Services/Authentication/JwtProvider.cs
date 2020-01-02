@@ -57,7 +57,7 @@ namespace ConstellationMind.Infrastructure.Services.Authentication
                 RefreshToken = string.Empty,
                 Expires = expires.ToTimestamp(),
                 Id = playerId,
-                Role = role,
+                Role = role ?? string.Empty,
                 Claims = claims
             };
         }

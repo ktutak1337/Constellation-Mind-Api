@@ -1,7 +1,10 @@
 using System.Threading.Tasks;
+using ConstellationMind.Api.Attributes;
+using ConstellationMind.Core.Domain;
 using ConstellationMind.Infrastructure.Services.Commands.Accounts;
 using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using ConstellationMind.Shared.Dispatchers.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConstellationMind.Api.Controllers
@@ -17,6 +20,7 @@ namespace ConstellationMind.Api.Controllers
 
         // POST api/accounts/sign-up
         [HttpPost("sign-up")]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] SignUp command)
         {
             await Dispatcher.SendAsync(command);
@@ -26,13 +30,14 @@ namespace ConstellationMind.Api.Controllers
 
         // POST api/accounts/sign-in
         [HttpPost("sign-in")]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] SignIn command)
             // temp solution
             => Ok(await _accountService.SignInAsync(command.Email, command.Password));
         
         // PUT api/accounts/me/password
-        [HttpPut]
-        [Route("me/password")]
+        [HttpPut("me/password/change")]
+        [Allow(Role.Admin, Role.Player)]
         public async Task<IActionResult> Put([FromBody] ChangePassword command)
         {
             await Dispatcher.SendAsync(command);

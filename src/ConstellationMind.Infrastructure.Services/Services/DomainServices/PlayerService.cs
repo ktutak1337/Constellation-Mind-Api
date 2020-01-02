@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ConstellationMind.Core.Domain;
@@ -9,7 +8,6 @@ using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Shared.Extensions;
-using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Infrastructure.Services.DomainServices
 {
@@ -18,7 +16,6 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
         #region Fields
         private readonly IPlayerRepository _playerRepository;
         private readonly IScoreboardRepository _scoreboardRepository;
-        private readonly IPasswordHasher<Player> _passwordHasher;
         private readonly IMapper _mapper;
 
         #endregion
@@ -26,12 +23,10 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
         #region Constructors
         public PlayerService(IPlayerRepository playerRepository,
                              IScoreboardRepository scoreboardRepository,
-                             IPasswordHasher<Player> passwordHasher,
                              IMapper mapper)
         {
             _playerRepository = playerRepository;
             _scoreboardRepository = scoreboardRepository;
-            _passwordHasher = passwordHasher;
             _mapper = mapper;            
         }
 

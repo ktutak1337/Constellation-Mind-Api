@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using ConstellationMind.Shared.Exceptions;
-using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -36,7 +35,7 @@ namespace ConstellationMind.Api.Middlewares
         private static Task HandleErrorAsync(HttpContext context, Exception exception)
         {
             var errorCode = "Error";
-            var message = "There was an error.";
+            var message = exception.Message;
             var statusCode = HttpStatusCode.BadRequest;
             
             switch(exception)

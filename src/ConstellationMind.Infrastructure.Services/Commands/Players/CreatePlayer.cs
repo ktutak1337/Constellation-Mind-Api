@@ -1,5 +1,4 @@
 using System;
-using ConstellationMind.Core.Domain;
 using ConstellationMind.Shared.Types;
 
 namespace ConstellationMind.Infrastructure.Services.Commands.Players

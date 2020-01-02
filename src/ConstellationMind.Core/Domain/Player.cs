@@ -2,7 +2,6 @@ using System;
 using ConstellationMind.Shared.Exceptions;
 using ConstellationMind.Shared.Extensions;
 using ConstellationMind.Shared.Types;
-using Microsoft.AspNetCore.Identity;
 
 namespace ConstellationMind.Core.Domain
 {
@@ -11,7 +10,7 @@ namespace ConstellationMind.Core.Domain
         #region Properties
         public Guid Identity { get; protected set; }
         public string Email { get; protected set; }
-        public string PasswordHash { get; protected set; }
+        public string Password { get; protected set; }
         public string FirstName { get; protected set; }
         public string Nickname { get; protected set; }
         public string Role { get; protected set; }
@@ -24,13 +23,14 @@ namespace ConstellationMind.Core.Domain
         #region Constructors
         protected Player() {}
 
-        public Player(Guid idnetity, string email, string nickname, string firstName, string role)
+        public Player(Guid idnetity, string email, string password, string nickname, string firstName, string role)
         {
             Identity = idnetity;
             Email = email.ToLowerInvariant();
+            Password = password;
             Nickname = nickname;
             FirstName = firstName ?? string.Empty;
-            Role = role ?? string.Empty;
+            Role = role.ToUpperInvariant() ?? Domain.Role.Player;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Points = 0;
@@ -41,18 +41,16 @@ namespace ConstellationMind.Core.Domain
         #region Methods
         public void UpdatePoints(int addPoints) => Points += addPoints;
 
-        public void SetPassword(string password, IPasswordHasher<Player> passwordHasher)
+        public void SetPassword(string password)
         {
-            if(password.IsEmpty()) throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Password can not be empty.");
+            if(password.IsEmpty()) 
+                throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Password can not be empty.");
             
-            PasswordHash = passwordHasher.HashPassword(this, password);
+            Password = password;
 
             UpdatedAt = DateTime.UtcNow;
         }
-
-        public bool VerifyPassword(string password, IPasswordHasher<Player> passwordHasher)
-            => passwordHasher.VerifyHashedPassword(this, PasswordHash, password) == PasswordVerificationResult.Success;
-
+        
         #endregion
     }
 }

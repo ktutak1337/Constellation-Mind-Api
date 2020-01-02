@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
@@ -8,7 +7,7 @@ using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
 using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using ConstellationMind.Shared.Exceptions;
-using Microsoft.AspNetCore.Identity;
+using ConstellationMind.Shared.Extensions;
 
 namespace ConstellationMind.Infrastructure.Services.Services
 {
@@ -16,36 +15,42 @@ namespace ConstellationMind.Infrastructure.Services.Services
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IScoreboardRepository _scoreboardRepository;
-        private readonly IPasswordHasher<Player> _passwordHasher;
+        private readonly IPasswordService _passwordService;
         private readonly IJwtProvider _jwtProvider;
 
         public AccountService(IPlayerRepository playerRepository,
                               IScoreboardRepository scoreboardRepository, 
-                              IPasswordHasher<Player> passwordHasher,
+                              IPasswordService passwordService,
                               IJwtProvider jwtProvider)
         {
             _playerRepository = playerRepository;
             _scoreboardRepository= scoreboardRepository;
-            _passwordHasher = passwordHasher;
+            _passwordService = passwordService;
             _jwtProvider = jwtProvider;
         }
 
         public async Task SignUpAsync(Guid identity, string email, string password, string nickname, string firstName, string role)
         {
+            if(password.IsEmpty()) 
+                throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Password can not be empty.");
+            
             var player = await _playerRepository.GetOrFailAsync(email);
-           
-            player = new Player(identity, email, nickname, firstName, role);
-            player.SetPassword(password, _passwordHasher);
-
+            var hashedPassword = _passwordService.HashPassword(password);
+            
+            player = new Player(identity, email, hashedPassword, nickname, firstName, Role.IsValid(role) ? role : Role.Player);
+            
             await _playerRepository.AddAsync(player);
-            await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
+            
+            if(player.Role == Role.Player)
+                await _scoreboardRepository.AddAsync(new PlayerScore(identity, nickname, player.Points));
         }
 
         public async Task<Jwt> SignInAsync(string email, string password)
         {
             var player = await _playerRepository.GetAsync(email);
-            if (player == null || player.VerifyPassword(password, _passwordHasher))
-                throw new ConstellationMindException(ErrorCodes.InvalidCredentials, "Invalid credentials.");
+            
+            if (player == null || !_passwordService.Verify(player.Password, password))
+                throw new ConstellationMindException(ErrorCodes.InvalidCredentials, "You have entered invalid credentials.");
 
             return _jwtProvider.CreateToken(player.Identity.ToString("N"), player.Role);
         }
@@ -54,11 +59,13 @@ namespace ConstellationMind.Infrastructure.Services.Services
         {
             var player = await _playerRepository.GetOrFailAsync(playerId);
             
-            if (!player.VerifyPassword(currentPassword, _passwordHasher)) throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Invalid password.");
+            if (!_passwordService.Verify(player.Password, currentPassword))
+                throw new ConstellationMindException(ErrorCodes.InvalidCredentials, "You have entered invalid credentials.");
             
-            player.SetPassword(newPassword, _passwordHasher);
+            var password = _passwordService.HashPassword(newPassword);
+            player.SetPassword(password);
+            
             await _playerRepository.UpdateAsync(player);
         }
-
     }
 }
