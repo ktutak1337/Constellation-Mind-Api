@@ -30,7 +30,7 @@ namespace ConstellationMind.Core.Domain
             Password = password;
             Nickname = nickname;
             FirstName = firstName ?? string.Empty;
-            Role = role ?? string.Empty;
+            Role = role.ToUpperInvariant() ?? Domain.Role.Player;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
             Points = 0;
