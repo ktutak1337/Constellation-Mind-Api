@@ -1,6 +1,4 @@
 using System;
-using ConstellationMind.Shared.Exceptions;
-using ConstellationMind.Shared.Extensions;
 using ConstellationMind.Shared.Types;
 
 namespace ConstellationMind.Core.Domain
@@ -41,13 +39,17 @@ namespace ConstellationMind.Core.Domain
         #region Methods
         public void UpdatePoints(int addPoints) => Points += addPoints;
 
+        public void UpdatePlayer(string email, string firstName, string nickname)
+        {
+            Email = email;
+            FirstName = firstName;
+            Nickname = nickname;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
         public void SetPassword(string password)
         {
-            if(password.IsEmpty()) 
-                throw new ConstellationMindException(ErrorCodes.InvalidPassword, "Password can not be empty.");
-            
             Password = password;
-
             UpdatedAt = DateTime.UtcNow;
         }
         

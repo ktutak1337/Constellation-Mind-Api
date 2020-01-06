@@ -10,6 +10,7 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices.Interfaces
     {
         Task<PlayerDto> GetAsync(Guid identity);
         Task<IEnumerable<PlayerDto>> GetPlayersAsync();
+        Task UpdatePlayerAsync(Guid identity, string email, string firstName, string nickname);
         Task UpdatePointsAsync(Guid identity, int addPoints);
         Task DeleteAsync(Guid identity);
     }

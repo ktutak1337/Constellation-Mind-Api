@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstellationMind.Api.Attributes;
@@ -28,17 +29,30 @@ namespace ConstellationMind.Api.Controllers
         public async Task<ActionResult<IEnumerable<PlayerDto>>> Get([FromRoute] GetPlayers query) 
             => SelectMany(await Dispatcher.QueryAsync(query));
 
-        // PUT api/players
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] UpdatePlayerPoints command)
+        // PUT api/players/{id}/points
+        [HttpPut("{id}/points")]
+        public async Task<IActionResult> Put(Guid id, UpdatePlayerPoints command)
         {
+            command.Id = id;
+
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        }
+
+        // PUT api/players/{id}/details
+        [HttpPut("{id}/details")]
+        public async Task<IActionResult> Put(Guid id, UpdatePlayer command)
+        {
+            command.Id = id;
+
             await Dispatcher.SendAsync(command);
 
             return NoContent();
         }
 
         // DELETE api/players/{id}
-        [HttpDelete("{playerId}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] DeletePlayer command)
         {
             await Dispatcher.SendAsync(command);

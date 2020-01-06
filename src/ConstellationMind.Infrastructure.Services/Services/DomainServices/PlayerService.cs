@@ -41,6 +41,15 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
             => (await _playerRepository.GetAllAsync())
                 .MapCollection<Player, PlayerDto>(_mapper);
 
+        public async Task UpdatePlayerAsync(Guid identity, string email, string firstName, string nickname)
+        {
+            var player = await _playerRepository.GetOrFailAsync(identity);
+            player.UpdatePlayer(email, firstName, nickname);
+
+            await _playerRepository.UpdateAsync(player);
+            await _scoreboardRepository.UpdateAsync(new PlayerScore(player.Identity, player.Nickname, player.Points));
+        }
+
         public async Task UpdatePointsAsync(Guid identity, int addPoints)
         {
             var player = await _playerRepository.GetOrFailAsync(identity);
@@ -55,7 +64,7 @@ namespace ConstellationMind.Infrastructure.Services.DomainServices
         {
             await _playerRepository.RemoveAsync(identity);
             await _scoreboardRepository.RemoveAsync(identity);
-        } 
+        }
 
         #endregion
     }
