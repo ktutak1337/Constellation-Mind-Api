@@ -5,14 +5,16 @@ using ConstellationMind.Shared.Handlers.Interfaces;
 
 namespace ConstellationMind.Infrastructure.Services.Handlers.Players
 {
-    public class DeletePlayerHandler: ICommandHandler<DeletePlayer>
+    public class UpdatePlayerHandler : ICommandHandler<UpdatePlayer>
     {
         private readonly IPlayerService _playerService;
 
-        public DeletePlayerHandler(IPlayerService playerService)
-            => _playerService = playerService;
+        public UpdatePlayerHandler(IPlayerService playerService)
+        {
+            _playerService = playerService;
+        }
 
-        public async Task HandleAsync(DeletePlayer command)
-            => await _playerService.DeleteAsync(command.PlayerId);
+        public Task HandleAsync(UpdatePlayer command)
+            => _playerService.UpdatePlayerAsync(command.Id, command.Email, command.FirstName, command.Nickname);
     }
 }

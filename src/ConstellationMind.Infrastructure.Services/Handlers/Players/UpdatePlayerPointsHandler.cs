@@ -13,7 +13,7 @@ namespace ConstellationMind.Infrastructure.Services.Handlers.Players
             => _playerService = playerService;
 
         public async Task HandleAsync(UpdatePlayerPoints command)
-            => await _playerService.UpdatePointsAsync(command.PlayerId, command.Points);
+            => await _playerService.UpdatePointsAsync(command.Id, command.Points);
                 
     }
 }
