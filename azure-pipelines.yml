@@ -1,14 +1,14 @@
 trigger:
-- master
-- develop
-
+  - master
+  - develop
+  
 pool:
-  vmImage: 'ubuntu-latest'
-
+    vmImage: 'ubuntu-latest'
+  
 variables:
-  buildConfiguration: 'Release'
-  imageName: 'constellation-mind-api'
-
+    buildConfiguration: 'Release'
+    imageName: 'constellation-mind-api'
+  
 steps:
 - task: UseDotNet@2
   displayName: 'Install .net core SDK'
