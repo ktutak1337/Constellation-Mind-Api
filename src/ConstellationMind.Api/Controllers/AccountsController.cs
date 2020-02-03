@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using ConstellationMind.Api.Attributes;
 using ConstellationMind.Core.Domain;
@@ -63,5 +64,17 @@ namespace ConstellationMind.Api.Controllers
 
             return NoContent();
         }
+
+        // DELETE api/accounts/{id}
+        [HttpDelete("{id}")]
+        [Allow(Role.Admin)]
+        public async Task<IActionResult> Delete(Guid id, DeleteAccount command)
+        {
+            command.PlayerId = id;
+
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        } 
     }
 }

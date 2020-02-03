@@ -67,5 +67,11 @@ namespace ConstellationMind.Infrastructure.Services.Services
             
             await _playerRepository.UpdateAsync(player);
         }
+
+        public async Task DeleteAccountAsync(Guid playerId)
+        {
+            await _playerRepository.RemoveAsync(playerId);
+            await _scoreboardRepository.RemoveAsync(playerId);
+        }
     }
 }
