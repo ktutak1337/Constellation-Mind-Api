@@ -54,8 +54,13 @@ namespace ConstellationMind.Infrastructure.Services.Services.Domains
 
         public async Task InvalidateAsync(string refreshToken)
         {
-            // TODO
-            await Task.CompletedTask;
+            var token = await _refreshTokenRepository.GetAsync(refreshToken);
+
+            if(token == null)
+                throw new ConstellationMindException(ErrorCodes.InvalidRefreshToken, "Invalid refresh token.");
+
+            token.Invalidate();
+            await _refreshTokenRepository.UpdateAsync(token);
         }
 
         private string GenerateRefreshToken()

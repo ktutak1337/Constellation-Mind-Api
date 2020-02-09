@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using ConstellationMind.Api.Attributes;
+using ConstellationMind.Core.Domain;
 using ConstellationMind.Infrastructure.Services.Commands.Auth;
 using ConstellationMind.Infrastructure.Services.Services.Domains.Interfaces;
 using ConstellationMind.Shared.Dispatchers.Interfaces;
@@ -22,5 +24,16 @@ namespace ConstellationMind.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Post([FromForm] RefreshAccessToken command)
             => Ok(await _refreshTokenService.RefreshAccessTokenAsync(command.RefreshToken));
+
+        // POST api/tokens/refresh-tokens/revoke
+        [HttpPost("refresh-tokens/revoke")]
+        [Consumes("application/x-www-form-urlencoded")]
+        [Allow(Role.Admin)]
+        public async Task<IActionResult> Post([FromForm] RevokeRefreshToken command)
+        {
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        }
     }
 }

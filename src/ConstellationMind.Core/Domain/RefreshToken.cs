@@ -23,5 +23,13 @@ namespace ConstellationMind.Core.Domain
             CreatedAt = DateTime.UtcNow;
             InvalidatedAt = null;
         }
+
+        public void Invalidate()
+        {
+            if(IsInvalidate)
+                throw new ConstellationMindException(ErrorCodes.InvalidatedRefreshToken, $"Refresh token with Id: '{Identity}' was already invalidated.");
+
+            InvalidatedAt = DateTime.UtcNow;
+        }
     }
 }
