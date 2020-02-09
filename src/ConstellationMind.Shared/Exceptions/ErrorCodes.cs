@@ -10,7 +10,8 @@ namespace ConstellationMind.Shared.Exceptions
         public static string InvalidRole => "Invalid_role";
         public static string InvalidFirstName => "Invalid_first_name";
         public static string InvalidNickname => "Invalid_nickname";
-        public static string InvalidPoints=> "Invalid_points";
+        public static string InvalidPoints => "Invalid_points";
+        public static string InvalidRefreshToken => "Invalid_refresh_token";
         public static string PlayerNotFound => "Player_not_found";
         public static string StarNotFound => "Star_not_found";
         public static string PlayerIdIsNullOrEmpty => "Player_ID_is_null_or_empty";
@@ -20,5 +21,6 @@ namespace ConstellationMind.Shared.Exceptions
         public static string CoordinatesAlreadyExist => "Coordinates_already_exist";
         public static string PlayerAlreadyExist => "Player_already_exist";
         public static string NullOrEmptyCollection => "Null_or_empty_collection";
+        public static string InvalidatedRefreshToken => "Invalidated_refresh_token";
     }
 }

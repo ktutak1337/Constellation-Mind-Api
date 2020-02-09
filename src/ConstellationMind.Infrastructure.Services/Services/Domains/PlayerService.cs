@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
-using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
+using ConstellationMind.Infrastructure.Services.Domains.Interfaces;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Shared.Extensions;
 
-namespace ConstellationMind.Infrastructure.Services.DomainServices
+namespace ConstellationMind.Infrastructure.Services.Domains
 {
     public class PlayerService : IPlayerService
     {

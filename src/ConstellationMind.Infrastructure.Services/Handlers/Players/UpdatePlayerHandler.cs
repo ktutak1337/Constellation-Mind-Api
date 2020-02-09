@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using ConstellationMind.Infrastructure.Services.Commands.Players;
-using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
+using ConstellationMind.Infrastructure.Services.Domains.Interfaces;
 using ConstellationMind.Shared.Handlers.Interfaces;
 
 namespace ConstellationMind.Infrastructure.Services.Handlers.Players

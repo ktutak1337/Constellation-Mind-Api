@@ -38,7 +38,12 @@ namespace ConstellationMind.Infrastructure.IoC.Modules
             builder.Register(context => 
                 new MongoDbRepository<Constellation>(database: context.Resolve<IMongoDatabase>(), collectionName: "Constellations"))
                     .As<IMongoDbRepository<Constellation>>()
-                    .InstancePerLifetimeScope();              
+                    .InstancePerLifetimeScope();
+
+            builder.Register(context => 
+                new MongoDbRepository<RefreshToken>(database: context.Resolve<IMongoDatabase>(), collectionName: "RefreshTokens"))
+                    .As<IMongoDbRepository<RefreshToken>>()
+                    .InstancePerLifetimeScope();             
         }
     }
 }
