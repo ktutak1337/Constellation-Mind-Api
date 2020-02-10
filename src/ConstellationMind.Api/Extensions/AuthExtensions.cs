@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using ConstellationMind.Shared.Extensions;
 using ConstellationMind.Shared.Settings;
@@ -30,7 +31,8 @@ namespace ConstellationMind.Api.Extensions
                         ValidIssuer = _settings.Issuer,
                         ValidAudience = _settings.ValidAudience,
                         ValidateAudience = _settings.ValidateAudience,
-                        ValidateLifetime = _settings.ValidateLifetime
+                        ValidateLifetime = _settings.ValidateLifetime,
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
         }

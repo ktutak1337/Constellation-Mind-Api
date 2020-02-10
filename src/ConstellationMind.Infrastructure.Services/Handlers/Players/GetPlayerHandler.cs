@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ConstellationMind.Infrastructure.Services.DomainServices.Interfaces;
+using ConstellationMind.Infrastructure.Services.Domains.Interfaces;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Queries.Players;
 using ConstellationMind.Shared.Handlers.Interfaces;

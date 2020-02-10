@@ -6,11 +6,11 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Infrastructure.Services.Extensions;
-using ConstellationMind.Infrastructure.Services.Services.DomainServices.Interfaces;
+using ConstellationMind.Infrastructure.Services.Services.Domains.Interfaces;
 using ConstellationMind.Shared.Exceptions;
 using ConstellationMind.Shared.Extensions;
 
-namespace ConstellationMind.Infrastructure.Services.Services.DomainServices
+namespace ConstellationMind.Infrastructure.Services.Services.Domains
 {
     public class ConstellationService : IConstellationService
     {

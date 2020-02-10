@@ -5,7 +5,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Infrastructure.Services.DTO;
 using ConstellationMind.Shared.Types;
 
-namespace ConstellationMind.Infrastructure.Services.Services.DomainServices.Interfaces
+namespace ConstellationMind.Infrastructure.Services.Services.Domains.Interfaces
 {
     public interface IConstellationService : IService
     {

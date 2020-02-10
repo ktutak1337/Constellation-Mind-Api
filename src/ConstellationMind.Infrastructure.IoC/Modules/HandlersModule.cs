@@ -1,6 +1,6 @@
 using System.Reflection;
 using Autofac;
-using ConstellationMind.Infrastructure.Services.DomainServices;
+using ConstellationMind.Infrastructure.Services.Domains;
 using ConstellationMind.Shared.Handlers.Interfaces;
 
 namespace ConstellationMind.Infrastructure.IoC.Modules

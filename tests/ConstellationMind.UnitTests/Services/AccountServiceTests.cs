@@ -4,6 +4,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
 using ConstellationMind.Infrastructure.Services.Services;
+using ConstellationMind.Infrastructure.Services.Services.Domains.Interfaces;
 using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
@@ -17,6 +18,7 @@ namespace ConstellationMind.UnitTests.Services
         private Mock<IScoreboardRepository> _scoreboardRepositoryMock;
         private Mock<IPasswordService> _passwordServiceMock;
         private Mock<IJwtProvider> _jwtProviderMock;
+        private Mock<IRefreshTokenService> _refreshTokenServiceMock;
 
         [SetUp]
         public void BeforeEach()
@@ -25,6 +27,7 @@ namespace ConstellationMind.UnitTests.Services
             _scoreboardRepositoryMock = new Mock<IScoreboardRepository>();
             _passwordServiceMock = new Mock<IPasswordService>();
             _jwtProviderMock = new Mock<IJwtProvider>();
+            _refreshTokenServiceMock = new Mock<IRefreshTokenService>();
         }
 
         [Test]
@@ -35,7 +38,8 @@ namespace ConstellationMind.UnitTests.Services
             var accountService = new AccountService(_playerRepositoryMock.Object,
                                                     _scoreboardRepositoryMock.Object,
                                                     _passwordServiceMock.Object,
-                                                    _jwtProviderMock.Object);                                      
+                                                    _jwtProviderMock.Object,
+                                                    _refreshTokenServiceMock.Object);                                      
 
             // ------------====   Act   ====------------
             

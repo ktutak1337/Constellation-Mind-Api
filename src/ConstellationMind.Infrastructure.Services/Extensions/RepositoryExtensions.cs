@@ -38,5 +38,15 @@ namespace ConstellationMind.Infrastructure.Services.Extensions
             
             return constellation;            
         }
+
+        public static async Task<RefreshToken> GetOrFailAsync(this IRefreshTokenRepository repository, string refreshToken)
+        {
+            var token = await repository.GetAsync(refreshToken);
+            
+            if(token == null) 
+                throw new ConstellationMindException(ErrorCodes.InvalidRefreshToken, $"Given refresh token is invalid."); 
+            
+            return token;       
+        }
     }
 }

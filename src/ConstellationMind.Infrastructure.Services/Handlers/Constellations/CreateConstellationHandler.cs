@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using ConstellationMind.Infrastructure.Services.Commands.Constellations;
-using ConstellationMind.Infrastructure.Services.Services.DomainServices.Interfaces;
+using ConstellationMind.Infrastructure.Services.Services.Domains.Interfaces;
 using ConstellationMind.Shared.Handlers.Interfaces;
 
 namespace ConstellationMind.Infrastructure.Services.Handlers.Constellations

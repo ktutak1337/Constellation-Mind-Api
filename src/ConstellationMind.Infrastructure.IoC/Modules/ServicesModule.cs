@@ -2,7 +2,7 @@ using System.Reflection;
 using Autofac;
 using ConstellationMind.Infrastructure.Services.Authentication;
 using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
-using ConstellationMind.Infrastructure.Services.DomainServices;
+using ConstellationMind.Infrastructure.Services.Domains;
 using ConstellationMind.Infrastructure.Services.Services;
 using ConstellationMind.Infrastructure.Services.Services.Interfaces;
 using ConstellationMind.Shared.Types;
