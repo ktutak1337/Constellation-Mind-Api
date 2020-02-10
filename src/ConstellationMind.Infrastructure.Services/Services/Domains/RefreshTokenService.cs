@@ -6,6 +6,7 @@ using ConstellationMind.Core.Domain;
 using ConstellationMind.Core.Repositories;
 using ConstellationMind.Infrastructure.Services.Authentication;
 using ConstellationMind.Infrastructure.Services.Authentication.Interfaces;
+using ConstellationMind.Infrastructure.Services.Extensions;
 using ConstellationMind.Infrastructure.Services.Services.Domains.Interfaces;
 using ConstellationMind.Shared.Exceptions;
 
@@ -33,18 +34,12 @@ namespace ConstellationMind.Infrastructure.Services.Services.Domains
 
         public async Task<Jwt> RefreshAccessTokenAsync(string refreshToken)
         {
-            var token = await _refreshTokenRepository.GetAsync(refreshToken);
-
-            if(token == null)
-                throw new ConstellationMindException(ErrorCodes.InvalidRefreshToken, $"Given refresh token is invalid.");
+            var token = await _refreshTokenRepository.GetOrFailAsync(refreshToken);
 
             if (token.IsInvalidate)
                 throw new ConstellationMindException(ErrorCodes.InvalidatedRefreshToken, $"Refresh token with Id: '{token.Identity}' was already invalidated.");
 
-            var player = await _playerRepository.GetAsync(token.PlayerId);
-            
-            if (player == null)
-                throw new ConstellationMindException(ErrorCodes.PlayerNotFound, $"Player with ID: '{token.PlayerId}' was not found.");
+            var player = await _playerRepository.GetOrFailAsync(token.PlayerId);
 
             var accessToken = _jwtProvider.CreateToken(player.Identity.ToString("N"), player.Role);
             accessToken.RefreshToken = refreshToken;
@@ -54,11 +49,7 @@ namespace ConstellationMind.Infrastructure.Services.Services.Domains
 
         public async Task InvalidateAsync(string refreshToken)
         {
-            var token = await _refreshTokenRepository.GetAsync(refreshToken);
-
-            if(token == null)
-                throw new ConstellationMindException(ErrorCodes.InvalidRefreshToken, "Invalid refresh token.");
-
+            var token = await _refreshTokenRepository.GetOrFailAsync(refreshToken);
             token.Invalidate();
             await _refreshTokenRepository.UpdateAsync(token);
         }
