@@ -13,6 +13,7 @@ namespace ConstellationMind.Core.Domain
         public string Nickname { get; protected set; }
         public string Role { get; protected set; }
         public int Points { get; protected set; }
+        public bool IsActive { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         
@@ -29,15 +30,18 @@ namespace ConstellationMind.Core.Domain
             Nickname = nickname;
             FirstName = firstName ?? string.Empty;
             Role = role.ToUpperInvariant() ?? Domain.Role.Player;
+            Points = 0;
+            IsActive = true;
             CreatedAt = DateTime.UtcNow;
             UpdatedAt = DateTime.UtcNow;
-            Points = 0;
         }
 
         #endregion
 
         #region Methods
         public void UpdatePoints(int addPoints) => Points += addPoints;
+
+        public void SetIsActive(bool isActive) => IsActive = isActive;
 
         public void UpdatePlayer(string email, string firstName, string nickname)
         {
@@ -52,7 +56,7 @@ namespace ConstellationMind.Core.Domain
             Password = password;
             UpdatedAt = DateTime.UtcNow;
         }
-        
+
         #endregion
     }
 }

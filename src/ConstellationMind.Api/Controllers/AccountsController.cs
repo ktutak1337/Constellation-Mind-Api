@@ -65,6 +65,18 @@ namespace ConstellationMind.Api.Controllers
             return NoContent();
         }
 
+        // PUT api/accounts/{id}/status
+        [HttpPut("{id}/status")]
+        [Allow(Role.Admin, Role.Player)]
+        public async Task<IActionResult> Put(Guid id, ChangeStatus command)
+        {
+            command.PlayerId = id;
+
+            await Dispatcher.SendAsync(command);
+
+            return NoContent();
+        }
+
         // DELETE api/accounts/{id}
         [HttpDelete("{id}")]
         [Allow(Role.Admin)]

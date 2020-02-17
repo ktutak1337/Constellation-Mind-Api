@@ -75,6 +75,14 @@ namespace ConstellationMind.Infrastructure.Services.Services
             await _playerRepository.UpdateAsync(player);
         }
 
+        public async Task ChangeStatusAsync(Guid playerId, bool isActive)
+        {
+            var player = await _playerRepository.GetOrFailAsync(playerId);
+            player.SetIsActive(isActive);
+            
+            await _playerRepository.UpdateAsync(player);
+        }
+
         public async Task DeleteAccountAsync(Guid playerId)
         {
             await _playerRepository.RemoveAsync(playerId);
