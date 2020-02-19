@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ConstellationMind.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
