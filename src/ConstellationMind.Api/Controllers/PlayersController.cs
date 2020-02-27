@@ -34,9 +34,9 @@ namespace ConstellationMind.Api.Controllers
             => Single(await Dispatcher.QueryAsync(query));
 
         /// <summary>
-        /// Returns list of players.
+        /// Returns a list of players.
         /// </summary>
-        /// <response code="200">Returns a unique `ID` for a single specific user. The HTTP `200 [OK]` response code indicates that the request has succeeded.</response>
+        /// <response code="200">Returns a list of all players. The HTTP `200 [OK]` response code indicates that the request has succeeded.</response>
         /// <response code="401">The HTTP `401 [Unauthorized]` response code indicates that the request has not been applied because it lacks valid authentication credentials for the target resource.</response>
         /// <response code="404">The HTTP `404 [Not Found]` response code indicates that the server can not find the requested resource.</response>
         [HttpGet]
