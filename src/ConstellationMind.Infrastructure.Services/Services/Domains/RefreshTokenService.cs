@@ -55,14 +55,14 @@ namespace ConstellationMind.Infrastructure.Services.Services.Domains
         }
 
         private string GenerateRefreshToken()
-		{
-			var randomNumber = new byte[32];
+        {
+            var randomNumber = new byte[32];
             
             using var randomNumberGenerator = RandomNumberGenerator.Create();			
             randomNumberGenerator.GetBytes(randomNumber);
             var result = Convert.ToBase64String(randomNumber);
             
             return Regex.Replace(result, @"[^0-9a-zA-Z]+", string.Empty);
-		}
+        }
     }
 }
