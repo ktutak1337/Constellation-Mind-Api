@@ -10,10 +10,9 @@ namespace ConstellationMind.Shared.Dispatchers
     {
         private readonly IComponentContext _context;
 
-        public CommandDispatcher(IComponentContext context)
-        {
-            _context = context;
-        }
+        public CommandDispatcher(IComponentContext context) 
+            => _context = context;
+
         public async Task SendAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             var handler = _context.Resolve<ICommandHandler<TCommand>>();

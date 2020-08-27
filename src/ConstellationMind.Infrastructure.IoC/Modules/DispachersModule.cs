@@ -1,4 +1,3 @@
-using System.Reflection;
 using Autofac;
 using ConstellationMind.Shared.Dispatchers;
 using ConstellationMind.Shared.Dispatchers.Interfaces;

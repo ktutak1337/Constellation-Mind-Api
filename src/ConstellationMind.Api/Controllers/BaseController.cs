@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using ConstellationMind.Shared.Dispatchers.Interfaces;
 using ConstellationMind.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -20,24 +19,9 @@ namespace ConstellationMind.Api.Controllers
         protected BaseController(IDispatcher dispatcher) 
             => Dispatcher = dispatcher;
 
-        protected ActionResult<TData> Single<TData>(TData data)
-        {
-            if (data == null)
-            {
-                return NotFound();
-            }
-            
-            return Ok(data);
-        }
-
-        protected ActionResult<IEnumerable<TData>> SelectMany<TData>(IEnumerable<TData> data)
-        {
-            if (data == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(data);
-        }
+        protected IActionResult Select<TData>(TData data)
+            where TData: class
+                => data is null ? NotFound()
+                                : Ok(data) as IActionResult;
     }
 }

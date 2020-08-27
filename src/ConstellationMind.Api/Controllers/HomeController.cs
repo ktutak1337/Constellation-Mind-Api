@@ -7,10 +7,12 @@ namespace ConstellationMind.Api.Controllers
     [Route("")]
     public class HomeController : BaseController
     {
-        public HomeController(IDispatcher dispatcher) : base(dispatcher) { }
+        public HomeController(IDispatcher dispatcher) 
+            : base(dispatcher) { }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Get() => Ok("Constellation Mind API");
+        public IActionResult Get() 
+            => Ok("Constellation Mind API");
     }
 }

@@ -10,10 +10,8 @@ namespace ConstellationMind.Shared.Dispatchers
     {
         private readonly IComponentContext _context;
 
-        public QueryDispatcher(IComponentContext context)
-        {
-            _context = context;
-        }
+        public QueryDispatcher(IComponentContext context) 
+            => _context = context;
 
         public async Task<TResult> QueryAsync<TResult>(IQuery<TResult> query)
         {

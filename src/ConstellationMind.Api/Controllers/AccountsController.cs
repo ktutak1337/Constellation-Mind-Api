@@ -45,11 +45,11 @@ namespace ConstellationMind.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Allow(Role.Admin, Role.Player)]
-        public async Task<ActionResult<PlayerDto>> Get(GetPlayer query)
+        public async Task<IActionResult> Get(GetPlayer query)
         {
             query.Id = PlayerId;
 
-            return Single(await Dispatcher.QueryAsync(query));
+            return Select<PlayerDto>(await Dispatcher.QueryAsync(query));
         }
 
         /// <summary>

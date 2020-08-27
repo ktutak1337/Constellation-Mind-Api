@@ -15,10 +15,8 @@ namespace ConstellationMind.Api.Controllers
     [Allow(Role.Admin, Role.Player)]
     public class PlayersController : BaseController
     {
-        public PlayersController(IDispatcher dispatcher) : base(dispatcher)
-        {
-
-        }
+        public PlayersController(IDispatcher dispatcher) 
+            : base(dispatcher) { }
 
         /// <summary>
         /// Returns a single player by `ID`.
@@ -30,8 +28,8 @@ namespace ConstellationMind.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PlayerDto>> Get([FromRoute] GetPlayer query) 
-            => Single(await Dispatcher.QueryAsync(query));
+        public async Task<IActionResult> Get([FromRoute] GetPlayer query) 
+            => Select<PlayerDto>(await Dispatcher.QueryAsync(query));
 
         /// <summary>
         /// Returns a list of players.
@@ -42,8 +40,8 @@ namespace ConstellationMind.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<PlayerDto>>> Get([FromRoute] GetPlayers query) 
-            => SelectMany(await Dispatcher.QueryAsync(query));
+        public async Task<IActionResult> Get([FromRoute] GetPlayers query) 
+            => Select<IEnumerable<PlayerDto>>(await Dispatcher.QueryAsync(query));
 
         /// <summary>
         /// Updates the number of points for a specific player.
