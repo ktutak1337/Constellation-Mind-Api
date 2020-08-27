@@ -6,11 +6,12 @@ namespace ConstellationMind.Infrastructure.Persistance.MongoDb
 {
     sealed class MongoDbConventions : IConventionPack
     {
-        public IEnumerable<IConvention> Conventions => new List<IConvention>
-            {
-                new IgnoreExtraElementsConvention(true),
-                new EnumRepresentationConvention(BsonType.String),
-                new CamelCaseElementNameConvention()
-            };
+        public IEnumerable<IConvention> Conventions
+            => new List<IConvention>
+                {
+                    new IgnoreExtraElementsConvention(true),
+                    new EnumRepresentationConvention(BsonType.String),
+                    new CamelCaseElementNameConvention()
+                };
     }
 }

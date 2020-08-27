@@ -14,10 +14,9 @@ namespace ConstellationMind.Api.Controllers
     {
         private readonly IRefreshTokenService _refreshTokenService;
 
-        public TokensController(IDispatcher dispatcher, IRefreshTokenService refreshTokenService) : base(dispatcher)
-        {
-            _refreshTokenService = refreshTokenService;
-        }
+        public TokensController(IDispatcher dispatcher, IRefreshTokenService refreshTokenService)
+            : base(dispatcher)
+                => _refreshTokenService = refreshTokenService;
 
         /// <summary>
         /// Exchanges the Refresh Token for a new Access Token.

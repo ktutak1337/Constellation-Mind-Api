@@ -14,10 +14,8 @@ namespace ConstellationMind.Api.Controllers
     [Allow(Role.Admin)]
     public class ConstellationsController : BaseController
     {
-        public ConstellationsController(IDispatcher dispatcher) : base(dispatcher)
-        {
-            
-        }
+        public ConstellationsController(IDispatcher dispatcher) 
+            : base(dispatcher) { }
 
         /// <summary>
         /// Returns a single constellation by `ID`.
@@ -33,8 +31,8 @@ namespace ConstellationMind.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ConstellationDto>> Get([FromRoute] GetConstellation query) 
-            => Single(await Dispatcher.QueryAsync(query));
+        public async Task<IActionResult> Get([FromRoute] GetConstellation query) 
+            => Select<ConstellationDto>(await Dispatcher.QueryAsync(query));
 
         /// <summary>
         /// Returns a list of constellation.
@@ -49,8 +47,8 @@ namespace ConstellationMind.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<ConstellationDto>>> Get([FromRoute] GetConstellations query) 
-            => SelectMany(await Dispatcher.QueryAsync(query));
+        public async Task<IActionResult> Get([FromRoute] GetConstellations query) 
+            => Select<IEnumerable<ConstellationDto>>(await Dispatcher.QueryAsync(query));
 
         /// <summary>
         /// Creates a new constellation.

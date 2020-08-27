@@ -13,10 +13,8 @@ namespace ConstellationMind.Api.Controllers
     [Allow(Role.Admin, Role.Player)]
     public class ScoreboardController : BaseController
     {
-        public ScoreboardController(IDispatcher dispatcher) : base(dispatcher)
-        {
-
-        }
+        public ScoreboardController(IDispatcher dispatcher) 
+            : base(dispatcher) { }
         
         /// <summary>
         /// Returns scoreboard.
@@ -27,7 +25,7 @@ namespace ConstellationMind.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<PlayerScoreDto>>> Get([FromRoute] GetScoreboard query) 
-            => SelectMany(await Dispatcher.QueryAsync(query));
+        public async Task<IActionResult> Get([FromRoute] GetScoreboard query) 
+            => Select<IEnumerable<PlayerScoreDto>>(await Dispatcher.QueryAsync(query));
     }
 }

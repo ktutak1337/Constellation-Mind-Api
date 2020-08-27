@@ -9,10 +9,8 @@ namespace ConstellationMind.Infrastructure.IoC
     {
         private readonly IConfiguration _configuration;
 
-        public ContainerModule(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+        public ContainerModule(IConfiguration configuration) 
+            => _configuration = configuration;
 
         protected override void Load(ContainerBuilder builder)
         {

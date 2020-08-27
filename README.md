@@ -21,7 +21,7 @@ The ConstellationMind.Api is a REST API, containing core features for Android Ap
 [linux-build-badge-develop]: https://dev.azure.com/Constellation-Mind/Constellation%20Mind/_apis/build/status/Constellation%20Mind?branchName=develop
 [linux-build-develop]: https://dev.azure.com/Constellation-Mind/Constellation%20Mind/_build/latest?definitionId=2&branchName=develop
 
-**What is prerequisites?**
+**What are prerequisites?**
 ----------------
 
 You will need the following tools:
